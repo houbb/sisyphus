@@ -4,7 +4,7 @@ echo "============================= RELEASE START..."
 ## 版本号信息(需要手动指定)
 oldVersion="1.0.0"
 newVersion="1.0.0"
-projectName="${artifactId}"
+projectName="sisyphus"
 
 # 删除分支
 oldBranchName="release_"${oldVersion}

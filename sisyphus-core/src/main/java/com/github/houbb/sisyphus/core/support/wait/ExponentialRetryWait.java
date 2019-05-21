@@ -8,9 +8,9 @@ import com.github.houbb.sisyphus.core.model.DefaultWaitTime;
 
 /**
  * 指数增长的等待策略
- * 1. 如果因数 > 1 越来越快。
- * 2. 如果因数=1 保持不变
- * 3. 如果 0 <= 因数 < 1 越来越慢
+ * 1. 如果因数大于 1 越来越快。
+ * 2. 如果因数等于1 保持不变
+ * 3. 如果因数大于0，且小于1 。越来越慢
  *
  * 斐波那契数列就是一种乘数接近于：1.618 的黄金递增。
  * 可以参考 {@link com.github.houbb.heaven.constant.MathConst#GOLD_SECTION}

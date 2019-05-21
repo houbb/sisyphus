@@ -1,8 +1,8 @@
 package com.github.houbb.sisyphus.core.support.wait;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
+import com.github.houbb.sisyphus.api.model.RetryAttempt;
 import com.github.houbb.sisyphus.api.model.WaitTime;
-import com.github.houbb.sisyphus.api.support.attempt.RetryAttempt;
 import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 import com.github.houbb.sisyphus.core.model.DefaultWaitTime;
 

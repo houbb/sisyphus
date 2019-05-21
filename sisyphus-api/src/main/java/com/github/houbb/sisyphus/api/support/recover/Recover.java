@@ -1,6 +1,6 @@
 package com.github.houbb.sisyphus.api.support.recover;
 
-import com.github.houbb.sisyphus.api.support.attempt.RetryAttempt;
+import com.github.houbb.sisyphus.api.model.RetryAttempt;
 
 /**
  * 恢复现场接口

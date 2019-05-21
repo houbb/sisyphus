@@ -1,7 +1,7 @@
 package com.github.houbb.sisyphus.core.support.listen;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
-import com.github.houbb.sisyphus.api.support.attempt.RetryAttempt;
+import com.github.houbb.sisyphus.api.model.RetryAttempt;
 import com.github.houbb.sisyphus.api.support.listen.RetryListen;
 import com.github.houbb.sisyphus.api.support.pipeline.Pipeline;
 import com.github.houbb.sisyphus.core.support.pipeline.DefaultPipeline;

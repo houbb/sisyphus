@@ -9,20 +9,25 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sisyphus-core</artifactId>
-    <description>The core module of sisyphus.</description>
+    <artifactId>sisyphus-test</artifactId>
+    <description>The test module for sisyphus.</description>
 
     <dependencies>
         <!--============================== SELF ==============================-->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>sisyphus-api</artifactId>
+            <artifactId>sisyphus-core</artifactId>
         </dependency>
 
-        <!--============================== INTER ==============================-->
+        <!--============================== OTHER ==============================-->
         <dependency>
-            <groupId>com.github.houbb</groupId>
-            <artifactId>heaven</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.rholder</groupId>
+            <artifactId>guava-retrying</artifactId>
         </dependency>
     </dependencies>
 </project>

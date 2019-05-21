@@ -1,6 +1,6 @@
 package com.github.houbb.sisyphus.api.support.stop;
 
-import com.github.houbb.sisyphus.api.support.attempt.RetryAttempt;
+import com.github.houbb.sisyphus.api.model.RetryAttempt;
 
 /**
  * 结束的条件

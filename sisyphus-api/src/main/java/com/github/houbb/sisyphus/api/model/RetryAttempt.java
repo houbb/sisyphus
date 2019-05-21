@@ -1,6 +1,4 @@
-package com.github.houbb.sisyphus.api.support.attempt;
-
-import com.github.houbb.sisyphus.api.model.AttemptTime;
+package com.github.houbb.sisyphus.api.model;
 
 import java.util.List;
 

@@ -1,7 +1,5 @@
 package com.github.houbb.sisyphus.api.support.pipeline;
 
-import com.github.houbb.heaven.annotation.CommonEager;
-
 import java.util.List;
 
 /**
@@ -11,7 +9,6 @@ import java.util.List;
  * @since 1.0.0
  * @param <T> 模板泛型
  */
-@CommonEager
 public interface Pipeline<T> {
 
     /**

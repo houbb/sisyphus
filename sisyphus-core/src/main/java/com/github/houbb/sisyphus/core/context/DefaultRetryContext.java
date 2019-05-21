@@ -59,7 +59,7 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
         return condition;
     }
 
-    public DefaultRetryContext condition(RetryCondition condition) {
+    public DefaultRetryContext<R> condition(RetryCondition condition) {
         this.condition = condition;
         return this;
     }
@@ -69,7 +69,7 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
         return waits;
     }
 
-    public DefaultRetryContext waits(RetryWait waits) {
+    public DefaultRetryContext<R> waits(RetryWait waits) {
         this.waits = waits;
         return this;
     }
@@ -79,7 +79,7 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
         return block;
     }
 
-    public DefaultRetryContext block(RetryBlock block) {
+    public DefaultRetryContext<R> block(RetryBlock block) {
         this.block = block;
         return this;
     }
@@ -89,7 +89,7 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
         return stop;
     }
 
-    public DefaultRetryContext stop(RetryStop stop) {
+    public DefaultRetryContext<R> stop(RetryStop stop) {
         this.stop = stop;
         return this;
     }
@@ -99,7 +99,7 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
         return callable;
     }
 
-    public DefaultRetryContext callable(Callable<R> callable) {
+    public DefaultRetryContext<R> callable(Callable<R> callable) {
         this.callable = callable;
         return this;
     }
@@ -109,7 +109,7 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
         return listen;
     }
 
-    public DefaultRetryContext listen(RetryListen listen) {
+    public DefaultRetryContext<R> listen(RetryListen listen) {
         this.listen = listen;
         return this;
     }
@@ -119,7 +119,7 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
         return recover;
     }
 
-    public DefaultRetryContext recover(Recover recover) {
+    public DefaultRetryContext<R> recover(Recover recover) {
         this.recover = recover;
         return this;
     }

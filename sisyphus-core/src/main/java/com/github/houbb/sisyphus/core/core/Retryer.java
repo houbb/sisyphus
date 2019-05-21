@@ -39,7 +39,7 @@ public class Retryer<R> {
      * 1. 默认不进行等待
      * 2. 支持多个等待策略混合。将所有的混合策略时间加在一起。
      */
-    private RetryWait waits = new NoRetryWait();
+    private RetryWait waits =  InstanceFactory.getInstance().singleton(NoRetryWait.class);
 
     /**
      * 阻塞的方式
@@ -67,12 +67,21 @@ public class Retryer<R> {
     private Recover recover = InstanceFactory.getInstance().singleton(NoRecover.class);
 
     /**
+     * 创建实例化对象
+     * @param <R> 泛型
+     * @return 结果
+     */
+    public static <R> Retryer<R> newInstance() {
+        return new Retryer<>();
+    }
+
+    /**
      * 重试生效条件
      *
      * @param condition 生效条件
      * @return this
      */
-    public Retryer condition(RetryCondition condition) {
+    public Retryer<R> condition(RetryCondition condition) {
         this.condition = condition;
         return this;
     }
@@ -83,7 +92,7 @@ public class Retryer<R> {
      * @param waits 等待策略
      * @return this
      */
-    public Retryer waits(RetryWait waits) {
+    public Retryer<R> waits(RetryWait waits) {
         this.waits = waits;
         return this;
     }
@@ -94,7 +103,7 @@ public class Retryer<R> {
      * @param maxAttempt 最大尝试次数
      * @return this
      */
-    public Retryer maxAttempt(final int maxAttempt) {
+    public Retryer<R> maxAttempt(final int maxAttempt) {
         this.stop = new MaxAttemptRetryStop(maxAttempt);
         return this;
     }
@@ -105,7 +114,7 @@ public class Retryer<R> {
      * @param block 阻塞策略
      * @return this
      */
-    private Retryer block(RetryBlock block) {
+    private Retryer<R> block(RetryBlock block) {
         this.block = block;
         return this;
     }
@@ -116,7 +125,7 @@ public class Retryer<R> {
      * @param stop 停止策略
      * @return this
      */
-    private Retryer stop(RetryStop stop) {
+    private Retryer<R> stop(RetryStop stop) {
         this.stop = stop;
         return this;
     }
@@ -127,7 +136,7 @@ public class Retryer<R> {
      * @param listen 监听
      * @return this
      */
-    public Retryer listen(RetryListen listen) {
+    public Retryer<R> listen(RetryListen listen) {
         this.listen = listen;
         return this;
     }
@@ -138,7 +147,7 @@ public class Retryer<R> {
      * @param recover 恢复策略
      * @return this
      */
-    public Retryer recover(Recover recover) {
+    public Retryer<R> recover(Recover recover) {
         this.recover = recover;
         return this;
     }

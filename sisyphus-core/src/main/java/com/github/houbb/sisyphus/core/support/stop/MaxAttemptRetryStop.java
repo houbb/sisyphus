@@ -1,7 +1,7 @@
 package com.github.houbb.sisyphus.core.support.stop;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
-import com.github.houbb.sisyphus.api.support.attempt.RetryAttempt;
+import com.github.houbb.sisyphus.api.model.RetryAttempt;
 import com.github.houbb.sisyphus.api.support.stop.RetryStop;
 import com.github.houbb.sisyphus.core.utl.ArgUtils;
 

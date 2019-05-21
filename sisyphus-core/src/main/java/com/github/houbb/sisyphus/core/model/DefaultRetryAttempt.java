@@ -1,8 +1,8 @@
-package com.github.houbb.sisyphus.core.support.attempt;
+package com.github.houbb.sisyphus.core.model;
 
 import com.github.houbb.heaven.annotation.NotThreadSafe;
 import com.github.houbb.sisyphus.api.model.AttemptTime;
-import com.github.houbb.sisyphus.api.support.attempt.RetryAttempt;
+import com.github.houbb.sisyphus.api.model.RetryAttempt;
 
 import java.util.List;
 

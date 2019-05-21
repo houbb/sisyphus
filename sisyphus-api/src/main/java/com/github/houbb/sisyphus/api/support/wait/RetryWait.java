@@ -1,7 +1,7 @@
 package com.github.houbb.sisyphus.api.support.wait;
 
+import com.github.houbb.sisyphus.api.model.RetryAttempt;
 import com.github.houbb.sisyphus.api.model.WaitTime;
-import com.github.houbb.sisyphus.api.support.attempt.RetryAttempt;
 
 /**
  * 重试等待策略

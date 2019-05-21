@@ -1,5 +1,6 @@
 package com.github.houbb.sisyphus.core.model;
 
+import com.github.houbb.heaven.annotation.NotThreadSafe;
 import com.github.houbb.sisyphus.api.model.AttemptTime;
 
 import java.util.Date;
@@ -9,39 +10,49 @@ import java.util.Date;
  * @author binbin.hou
  * @since 1.0.0
  */
+@NotThreadSafe
 public class DefaultAttemptTime implements AttemptTime {
+
+    /**
+     * 开始时间
+     */
+    private Date startTime;
+    /**
+     * 结束时间
+     */
+    private Date endTime;
+    /**
+     * 消耗的时间
+     */
+    private long costTimeInMills;
 
     @Override
     public Date startTime() {
-        return null;
+        return startTime;
+    }
+
+    public DefaultAttemptTime startTime(Date startTime) {
+        this.startTime = startTime;
+        return this;
     }
 
     @Override
     public Date endTime() {
-        return null;
+        return endTime;
+    }
+
+    public DefaultAttemptTime endTime(Date endTime) {
+        this.endTime = endTime;
+        return this;
     }
 
     @Override
     public long costTimeInMills() {
-        return 0;
+        return costTimeInMills;
     }
-//
-//    /**
-//     * 开始时间
-//     * @return 开始时间
-//     */
-//    Date startTime();
-//
-//    /**
-//     * 结束时间
-//     * @return 结束时间
-//     */
-//    Date endTime();
-//
-//    /**
-//     * 消耗的时间(毫秒)
-//     * @return 消耗的时间
-//     */
-//    long costTimeInMills();
 
+    public DefaultAttemptTime costTimeInMills(long costTimeInMills) {
+        this.costTimeInMills = costTimeInMills;
+        return this;
+    }
 }

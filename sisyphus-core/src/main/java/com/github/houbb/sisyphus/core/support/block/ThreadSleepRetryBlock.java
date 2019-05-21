@@ -18,6 +18,9 @@ public class ThreadSleepRetryBlock implements RetryBlock {
         try {
             waitTime.unit().sleep(waitTime.time());
         } catch (InterruptedException e) {
+            //restore status
+            Thread.currentThread().interrupt();
+
             throw new RetryException(e);
         }
     }

@@ -4,10 +4,11 @@ import com.github.houbb.heaven.annotation.NotThreadSafe;
 import com.github.houbb.sisyphus.api.context.RetryContext;
 import com.github.houbb.sisyphus.api.support.block.RetryBlock;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
+import com.github.houbb.sisyphus.api.support.listen.RetryListen;
+import com.github.houbb.sisyphus.api.support.recover.Recover;
 import com.github.houbb.sisyphus.api.support.stop.RetryStop;
 import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 
-import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
@@ -16,17 +17,17 @@ import java.util.concurrent.Callable;
  * @since 1.0.0
  */
 @NotThreadSafe
-public class DefaultRetryContext<R> implements RetryContext<R> {
+public class DefaultRetryContext<R>  implements RetryContext<R> {
 
     /**
      * 执行的条件
      */
-    private List<RetryCondition> conditions;
+    private RetryCondition condition;
 
     /**
      * 等待策略列表
      */
-    private List<RetryWait> waits;
+    private RetryWait waits;
 
     /**
      * 阻塞实现
@@ -44,29 +45,31 @@ public class DefaultRetryContext<R> implements RetryContext<R> {
     private Callable<R> callable;
 
     /**
-     * 创建上下文实例
-     * @return this
+     * 监听器
      */
-    public static DefaultRetryContext newInstance() {
-        return new DefaultRetryContext();
-    }
+    private RetryListen listen;
+
+    /**
+     * 恢复策略
+     */
+    private Recover recover;
 
     @Override
-    public List<RetryCondition> conditions() {
-        return conditions;
+    public RetryCondition condition() {
+        return condition;
     }
 
-    public DefaultRetryContext conditions(List<RetryCondition> conditions) {
-        this.conditions = conditions;
+    public DefaultRetryContext condition(RetryCondition condition) {
+        this.condition = condition;
         return this;
     }
 
     @Override
-    public List<RetryWait> waits() {
+    public RetryWait waits() {
         return waits;
     }
 
-    public DefaultRetryContext waits(List<RetryWait> waits) {
+    public DefaultRetryContext waits(RetryWait waits) {
         this.waits = waits;
         return this;
     }
@@ -98,6 +101,26 @@ public class DefaultRetryContext<R> implements RetryContext<R> {
 
     public DefaultRetryContext callable(Callable<R> callable) {
         this.callable = callable;
+        return this;
+    }
+
+    @Override
+    public RetryListen listen() {
+        return listen;
+    }
+
+    public DefaultRetryContext listen(RetryListen listen) {
+        this.listen = listen;
+        return this;
+    }
+
+    @Override
+    public Recover recover() {
+        return recover;
+    }
+
+    public DefaultRetryContext recover(Recover recover) {
+        this.recover = recover;
         return this;
     }
 }

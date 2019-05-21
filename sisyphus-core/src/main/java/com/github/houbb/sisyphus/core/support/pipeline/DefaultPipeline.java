@@ -3,6 +3,8 @@ package com.github.houbb.sisyphus.core.support.pipeline;
 import com.github.houbb.heaven.annotation.NotThreadSafe;
 import com.github.houbb.sisyphus.api.support.pipeline.Pipeline;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,58 +15,69 @@ import java.util.List;
 @NotThreadSafe
 public class DefaultPipeline<T> implements Pipeline<T> {
 
+    /**
+     * 创建一个内部的链表
+     */
+    private LinkedList<T> list = new LinkedList<>();
+
     @Override
     public Pipeline addLast(T t) {
-        return null;
+        list.addLast(t);
+        return this;
     }
 
     @Override
     public Pipeline addFirst(T t) {
-        return null;
+        list.addFirst(t);
+        return this;
     }
 
     @Override
-    public Pipeline replace(int index, T t) {
-        return null;
+    public Pipeline set(int index, T t) {
+        list.set(index, t);
+        return this;
     }
 
     @Override
     public Pipeline removeLast() {
-        return null;
+        list.removeLast();
+        return this;
     }
 
     @Override
     public Pipeline removeFirst() {
-        return null;
+        list.removeFirst();
+        return this;
     }
 
     @Override
     public Pipeline remove(int index) {
-        return null;
+        list.remove(index);
+        return this;
     }
 
     @Override
     public T get(int index) {
-        return null;
+        return list.get(index);
     }
 
     @Override
     public T getFirst() {
-        return null;
+        return list.getFirst();
     }
 
     @Override
     public T getLast() {
-        return null;
+        return list.getLast();
     }
 
     @Override
     public List<T> list() {
-        return null;
+        return Collections.unmodifiableList(list);
     }
 
     @Override
     public List<T> slice(int startIndex, int endIndex) {
-        return null;
+        return list.subList(startIndex, endIndex);
     }
 }

@@ -22,6 +22,11 @@ public class DefaultWaitTime implements WaitTime {
      */
     private final TimeUnit unit;
 
+    public DefaultWaitTime(long time) {
+        this.time = time;
+        this.unit = TimeUnit.MILLISECONDS;
+    }
+
     public DefaultWaitTime(long time, TimeUnit unit) {
         this.time = time;
         this.unit = unit;

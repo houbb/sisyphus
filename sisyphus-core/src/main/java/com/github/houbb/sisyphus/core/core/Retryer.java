@@ -2,24 +2,25 @@ package com.github.houbb.sisyphus.core.core;
 
 import com.github.houbb.heaven.annotation.NotThreadSafe;
 import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
-import com.github.houbb.sisyphus.api.core.Retry;
 import com.github.houbb.sisyphus.api.support.block.RetryBlock;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
+import com.github.houbb.sisyphus.api.support.listen.RetryListen;
+import com.github.houbb.sisyphus.api.support.recover.Recover;
 import com.github.houbb.sisyphus.api.support.stop.RetryStop;
 import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 import com.github.houbb.sisyphus.core.context.DefaultRetryContext;
 import com.github.houbb.sisyphus.core.support.block.ThreadSleepRetryBlock;
 import com.github.houbb.sisyphus.core.support.condition.AlwaysFalseRetryCondition;
+import com.github.houbb.sisyphus.core.support.listen.NoRetryListen;
+import com.github.houbb.sisyphus.core.support.recover.NoRecover;
 import com.github.houbb.sisyphus.core.support.stop.MaxAttemptRetryStop;
-import com.github.houbb.sisyphus.core.support.wait.FixedRetryWait;
+import com.github.houbb.sisyphus.core.support.wait.NoRetryWait;
 
-import java.util.Arrays;
 import java.util.concurrent.Callable;
-
-import static com.github.houbb.sisyphus.core.context.DefaultRetryContext.newInstance;
 
 /**
  * 引导类入口
+ *
  * @author binbin.hou
  * @since 1.0.0
  */
@@ -35,10 +36,10 @@ public class Retryer<R> {
 
     /**
      * 等待的策略
-     * 1. 默认时间间隔为1秒
+     * 1. 默认不进行等待
      * 2. 支持多个等待策略混合。将所有的混合策略时间加在一起。
      */
-    private RetryWait wait = new FixedRetryWait(1*1000);
+    private RetryWait waits = new NoRetryWait();
 
     /**
      * 阻塞的方式
@@ -54,7 +55,20 @@ public class Retryer<R> {
     private RetryStop stop = new MaxAttemptRetryStop(3);
 
     /**
+     * 监听器
+     * 1. 默认不进行任何操作
+     */
+    private RetryListen listen = InstanceFactory.getInstance().singleton(NoRetryListen.class);
+
+    /**
+     * 恢复策略
+     * 1. 默认不进行任何操作
+     */
+    private Recover recover = InstanceFactory.getInstance().singleton(NoRecover.class);
+
+    /**
      * 重试生效条件
+     *
      * @param condition 生效条件
      * @return this
      */
@@ -65,26 +79,29 @@ public class Retryer<R> {
 
     /**
      * 最大等待策略
-     * @param wait 等待策略
+     *
+     * @param waits 等待策略
      * @return this
      */
-    public Retryer wait(RetryWait wait) {
-        this.wait = wait;
+    public Retryer waits(RetryWait waits) {
+        this.waits = waits;
         return this;
     }
 
     /**
      * 最大尝试次数
-     * @param times 次数
+     *
+     * @param maxAttempt 最大尝试次数
      * @return this
      */
-    public Retryer times(final int times) {
-        this.stop = new MaxAttemptRetryStop(times);
+    public Retryer maxAttempt(final int maxAttempt) {
+        this.stop = new MaxAttemptRetryStop(maxAttempt);
         return this;
     }
 
     /**
      * 设置阻塞策略
+     *
      * @param block 阻塞策略
      * @return this
      */
@@ -95,6 +112,7 @@ public class Retryer<R> {
 
     /**
      * 设置停止策略
+     *
      * @param stop 停止策略
      * @return this
      */
@@ -104,20 +122,46 @@ public class Retryer<R> {
     }
 
     /**
+     * 设置监听
+     *
+     * @param listen 监听
+     * @return this
+     */
+    public Retryer listen(RetryListen listen) {
+        this.listen = listen;
+        return this;
+    }
+
+    /**
+     * 设置恢复策略
+     *
+     * @param recover 恢复策略
+     * @return this
+     */
+    public Retryer recover(Recover recover) {
+        this.recover = recover;
+        return this;
+    }
+
+    /**
      * 执行重试
+     *
      * @param callable 可执行的方法
      * @return 执行的结果
      */
     public R retry(Callable<R> callable) {
         // 初始化
-        DefaultRetryContext context = DefaultRetryContext.newInstance()
-                .callable(callable)
+        DefaultRetryContext<R> context = new DefaultRetryContext<>();
+        context.callable(callable)
                 .block(block)
                 .stop(stop)
-                .conditions(Arrays.asList(condition))
-                .waits(Arrays.asList(wait));
+                .condition(condition)
+                .waits(waits)
+                .listen(listen)
+                .recover(recover);
+
         // 调用执行结果
-        DefaultRetry<R> defaultRetry = InstanceFactory.getInstance().singleton(DefaultRetry.class);
+        DefaultRetry<R> defaultRetry = new DefaultRetry<>();
         return defaultRetry.retry(context);
     }
 

@@ -34,7 +34,7 @@ public interface Pipeline<T> {
      * @param t 元素
      * @return this
      */
-    Pipeline replace(final int index, final T t);
+    Pipeline set(final int index, final T t);
 
     /**
      * 移除最后一个元素

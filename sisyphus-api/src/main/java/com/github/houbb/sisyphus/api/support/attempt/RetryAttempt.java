@@ -17,10 +17,10 @@ public interface RetryAttempt<R> {
     R result();
 
     /**
-     * 当前执行次数
+     * 当前尝试次数
      * @return 次数
      */
-    int number();
+    int attempt();
 
     /**
      * 异常信息
@@ -38,6 +38,6 @@ public interface RetryAttempt<R> {
      * 重试的历史信息
      * @return 重试的历史列表
      */
-    List<RetryAttempt> history();
+    List<RetryAttempt<R>> history();
 
 }

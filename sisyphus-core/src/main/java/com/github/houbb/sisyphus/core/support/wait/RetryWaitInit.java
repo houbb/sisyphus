@@ -1,13 +1,12 @@
 package com.github.houbb.sisyphus.core.support.wait;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
+import com.github.houbb.heaven.support.pipeline.Pipeline;
+import com.github.houbb.heaven.support.pipeline.impl.DefaultPipeline;
 import com.github.houbb.sisyphus.api.model.RetryAttempt;
 import com.github.houbb.sisyphus.api.model.WaitTime;
-import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
-import com.github.houbb.sisyphus.api.support.pipeline.Pipeline;
 import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 import com.github.houbb.sisyphus.core.model.DefaultWaitTime;
-import com.github.houbb.sisyphus.core.support.pipeline.DefaultPipeline;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * 1. 用于一次初始化多个等待类
  * 2. 等待时间，是多个等待时间的和。
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 @ThreadSafe
 public abstract class RetryWaitInit implements RetryWait {

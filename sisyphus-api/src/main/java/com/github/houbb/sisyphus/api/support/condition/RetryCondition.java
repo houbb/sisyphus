@@ -3,9 +3,9 @@ package com.github.houbb.sisyphus.api.support.condition;
 import com.github.houbb.sisyphus.api.model.RetryAttempt;
 
 /**
- * 重试的条件
+ * 重试执行的条件
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 public interface RetryCondition<R> {
 

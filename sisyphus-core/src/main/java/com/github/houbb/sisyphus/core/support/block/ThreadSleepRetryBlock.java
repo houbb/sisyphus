@@ -8,7 +8,7 @@ import com.github.houbb.sisyphus.api.support.block.RetryBlock;
 /**
  * 线程沉睡的阻塞方式
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 @ThreadSafe
 public class ThreadSleepRetryBlock implements RetryBlock {

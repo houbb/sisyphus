@@ -1,10 +1,10 @@
 package com.github.houbb.sisyphus.core.support.condition;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
+import com.github.houbb.heaven.support.pipeline.Pipeline;
+import com.github.houbb.heaven.support.pipeline.impl.DefaultPipeline;
 import com.github.houbb.sisyphus.api.model.RetryAttempt;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
-import com.github.houbb.sisyphus.api.support.pipeline.Pipeline;
-import com.github.houbb.sisyphus.core.support.pipeline.DefaultPipeline;
 
 import java.util.List;
 
@@ -13,7 +13,8 @@ import java.util.List;
  * 1. 满足任意一个即可
  * 2. 如果有更加复杂的需求，用户应该自定定义。
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
+ * @param <R> 泛型
  */
 @ThreadSafe
 public abstract class RetryConditionInit<R> implements RetryCondition<R> {

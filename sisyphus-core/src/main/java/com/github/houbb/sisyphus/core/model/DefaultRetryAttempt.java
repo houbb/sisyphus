@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * 默认重试信息
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
+ * @param <R> 泛型
  */
 @NotThreadSafe
 public class DefaultRetryAttempt<R> implements RetryAttempt<R> {

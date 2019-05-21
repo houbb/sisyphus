@@ -1,14 +1,14 @@
 package com.github.houbb.sisyphus.core.support.stop;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
+import com.github.houbb.heaven.util.common.ArgUtil;
 import com.github.houbb.sisyphus.api.model.RetryAttempt;
 import com.github.houbb.sisyphus.api.support.stop.RetryStop;
-import com.github.houbb.sisyphus.core.utl.ArgUtils;
 
 /**
  * 最大尝试次数终止策略
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 @ThreadSafe
 public class MaxAttemptRetryStop implements RetryStop {
@@ -20,7 +20,7 @@ public class MaxAttemptRetryStop implements RetryStop {
     private final int maxAttempt;
 
     public MaxAttemptRetryStop(int maxAttempt) {
-        ArgUtils.postiveInt(maxAttempt, "MaxAttempt");
+        ArgUtil.positive(maxAttempt, "MaxAttempt");
         this.maxAttempt = maxAttempt;
     }
 

@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * 随机等待策略
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 @ThreadSafe
 public class RandomRetryWait implements RetryWait {

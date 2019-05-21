@@ -6,7 +6,7 @@ import com.github.houbb.sisyphus.api.model.WaitTime;
 /**
  * 重试等待策略
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 public interface RetryWait {
 

@@ -7,7 +7,7 @@ import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 /**
  * 恒为假重试条件
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 @ThreadSafe
 public class AlwaysFalseRetryCondition implements RetryCondition {

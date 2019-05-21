@@ -7,7 +7,7 @@ import com.github.houbb.sisyphus.api.support.recover.Recover;
 /**
  * 不指定任何动作
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 @ThreadSafe
 public class NoRecover implements Recover {

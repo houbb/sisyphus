@@ -9,7 +9,7 @@ import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
  * 2. 异常 是否存在异常
  * 3. 异常的类型。
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 public final class RetryConditions {
 

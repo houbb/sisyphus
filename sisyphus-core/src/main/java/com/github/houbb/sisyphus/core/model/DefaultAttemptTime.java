@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * 尝试执行的时候消耗时间
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 @NotThreadSafe
 public class DefaultAttemptTime implements AttemptTime {

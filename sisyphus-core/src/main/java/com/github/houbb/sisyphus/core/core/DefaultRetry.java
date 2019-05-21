@@ -1,6 +1,7 @@
 package com.github.houbb.sisyphus.core.core;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
+import com.github.houbb.heaven.util.util.DateUtil;
 import com.github.houbb.sisyphus.api.context.RetryContext;
 import com.github.houbb.sisyphus.api.core.Retry;
 import com.github.houbb.sisyphus.api.model.RetryAttempt;
@@ -13,7 +14,6 @@ import com.github.houbb.sisyphus.api.support.stop.RetryStop;
 import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 import com.github.houbb.sisyphus.core.model.DefaultAttemptTime;
 import com.github.houbb.sisyphus.core.model.DefaultRetryAttempt;
-import com.github.houbb.sisyphus.core.utl.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +24,8 @@ import java.util.concurrent.Callable;
  * 默认的重试实现
  *
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
+ * @param <R> 泛型
  */
 @ThreadSafe
 public class DefaultRetry<R> implements Retry<R> {
@@ -85,7 +86,7 @@ public class DefaultRetry<R> implements Retry<R> {
     private RetryAttempt<R> execute(final Callable<R> callable,
                                     final int attempts,
                                     final List<RetryAttempt<R>> history) {
-        final Date startTime = DateUtils.now();
+        final Date startTime = DateUtil.now();
 
         DefaultRetryAttempt<R> retryAttempt = new DefaultRetryAttempt<>();
         Throwable throwable = null;
@@ -95,8 +96,8 @@ public class DefaultRetry<R> implements Retry<R> {
         } catch (Exception e) {
             throwable = e;
         }
-        final Date endTime = DateUtils.now();
-        final long costTimeInMills = DateUtils.costTimeInMills(startTime, endTime);
+        final Date endTime = DateUtil.now();
+        final long costTimeInMills = DateUtil.costTimeInMills(startTime, endTime);
         DefaultAttemptTime attemptTime = new DefaultAttemptTime();
         attemptTime.startTime(startTime)
                 .endTime(endTime)

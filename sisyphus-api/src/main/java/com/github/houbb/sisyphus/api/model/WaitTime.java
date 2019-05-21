@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 等待时间接口
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 public interface WaitTime {
 

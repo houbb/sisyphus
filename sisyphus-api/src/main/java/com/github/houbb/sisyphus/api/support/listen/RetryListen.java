@@ -5,7 +5,7 @@ import com.github.houbb.sisyphus.api.model.RetryAttempt;
 /**
  * 重试监听
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 public interface RetryListen {
 

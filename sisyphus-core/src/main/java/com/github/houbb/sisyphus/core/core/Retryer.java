@@ -2,6 +2,7 @@ package com.github.houbb.sisyphus.core.core;
 
 import com.github.houbb.heaven.annotation.NotThreadSafe;
 import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
+import com.github.houbb.heaven.util.common.ArgUtil;
 import com.github.houbb.sisyphus.api.support.block.RetryBlock;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 import com.github.houbb.sisyphus.api.support.listen.RetryListen;
@@ -22,7 +23,8 @@ import java.util.concurrent.Callable;
  * 引导类入口
  *
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
+ * @param <R> 泛型
  */
 @NotThreadSafe
 public class Retryer<R> {
@@ -82,6 +84,8 @@ public class Retryer<R> {
      * @return this
      */
     public Retryer<R> condition(RetryCondition condition) {
+        ArgUtil.notNull(condition, "condition");
+
         this.condition = condition;
         return this;
     }
@@ -93,6 +97,8 @@ public class Retryer<R> {
      * @return this
      */
     public Retryer<R> waits(RetryWait waits) {
+        ArgUtil.notNull(waits, "waits");
+
         this.waits = waits;
         return this;
     }
@@ -104,6 +110,8 @@ public class Retryer<R> {
      * @return this
      */
     public Retryer<R> maxAttempt(final int maxAttempt) {
+        ArgUtil.positive(maxAttempt, "maxAttempt");
+
         this.stop = new MaxAttemptRetryStop(maxAttempt);
         return this;
     }
@@ -115,6 +123,8 @@ public class Retryer<R> {
      * @return this
      */
     private Retryer<R> block(RetryBlock block) {
+        ArgUtil.notNull(block, "block");
+
         this.block = block;
         return this;
     }
@@ -126,6 +136,8 @@ public class Retryer<R> {
      * @return this
      */
     private Retryer<R> stop(RetryStop stop) {
+        ArgUtil.notNull(stop, "stop");
+
         this.stop = stop;
         return this;
     }
@@ -137,6 +149,8 @@ public class Retryer<R> {
      * @return this
      */
     public Retryer<R> listen(RetryListen listen) {
+        ArgUtil.notNull(listen, "listen");
+
         this.listen = listen;
         return this;
     }
@@ -148,6 +162,8 @@ public class Retryer<R> {
      * @return this
      */
     public Retryer<R> recover(Recover recover) {
+        ArgUtil.notNull(recover, "recover");
+
         this.recover = recover;
         return this;
     }
@@ -159,6 +175,8 @@ public class Retryer<R> {
      * @return 执行的结果
      */
     public R retry(Callable<R> callable) {
+        ArgUtil.notNull(callable, "callable");
+
         // 初始化
         DefaultRetryContext<R> context = new DefaultRetryContext<>();
         context.callable(callable)

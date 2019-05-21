@@ -5,7 +5,7 @@ import com.github.houbb.sisyphus.api.model.RetryAttempt;
 /**
  * 结束的条件
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  * @see com.github.houbb.sisyphus.api.support.condition.RetryCondition 执行的条件
  */
 public interface RetryStop {

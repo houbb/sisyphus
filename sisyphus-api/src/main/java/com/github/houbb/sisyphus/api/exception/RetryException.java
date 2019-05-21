@@ -1,9 +1,9 @@
 package com.github.houbb.sisyphus.api.exception;
 
 /**
- * 重试异常接口
+ * 重试异常类
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 public class RetryException extends RuntimeException {
 

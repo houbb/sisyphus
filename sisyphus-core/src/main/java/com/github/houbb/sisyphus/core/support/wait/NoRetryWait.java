@@ -10,8 +10,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 无时间等待
+ * 1. 不是很建议使用这种方式
+ * 2. 一般的异常都有时间性，在一定区间内有问题，那就是有问题。
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 @ThreadSafe
 public class NoRetryWait implements RetryWait {

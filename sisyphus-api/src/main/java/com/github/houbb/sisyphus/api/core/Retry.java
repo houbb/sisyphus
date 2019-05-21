@@ -3,8 +3,10 @@ package com.github.houbb.sisyphus.api.core;
 import com.github.houbb.sisyphus.api.context.RetryContext;
 
 /**
+ *
+ * 重试接口
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  * @param <R> 泛型模板
  */
 public interface Retry<R> {

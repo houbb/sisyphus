@@ -3,8 +3,9 @@ package com.github.houbb.sisyphus.api.model;
 import java.util.List;
 
 /**
+ * 重试信息接口
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 public interface RetryAttempt<R> {
 

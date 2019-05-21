@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 固定时间间隔等待
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 @ThreadSafe
 public class FixedRetryWait implements RetryWait {

@@ -3,9 +3,9 @@ package com.github.houbb.sisyphus.api.model;
 import java.util.Date;
 
 /**
- * 尝试执行接口s
+ * 尝试执行时间接口
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 public interface AttemptTime {
 

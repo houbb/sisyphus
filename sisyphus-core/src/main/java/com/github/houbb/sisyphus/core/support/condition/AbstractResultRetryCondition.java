@@ -8,7 +8,8 @@ import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 /**
  * 根据结果进行重试的抽象类
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
+ * @param <R> 泛型
  */
 @ThreadSafe
 public abstract class AbstractResultRetryCondition<R> implements RetryCondition<R> {

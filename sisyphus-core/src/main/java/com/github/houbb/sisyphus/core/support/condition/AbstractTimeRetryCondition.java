@@ -8,7 +8,7 @@ import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 /**
  * 根据时间进行重试的抽象类
  * @author binbin.hou
- * @since 1.0.0
+ * @since 0.0.1
  */
 @ThreadSafe
 public abstract class AbstractTimeRetryCondition implements RetryCondition {

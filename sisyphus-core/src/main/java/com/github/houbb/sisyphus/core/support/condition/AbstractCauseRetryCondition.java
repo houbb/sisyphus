@@ -30,10 +30,11 @@ public abstract class AbstractCauseRetryCondition implements RetryCondition {
      * 判断是否有异常信息
      * 1. 有，返回 true
      * 2. 无，返回 false
-     * @return 是异常信息
+     * @param throwable 异常信息
+     * @return 是否有异常信息
      */
-    protected boolean hasException(final Object result) {
-        return ObjectUtil.isNotNull(result);
+    protected boolean hasException(final Throwable throwable) {
+        return ObjectUtil.isNotNull(throwable);
     }
 
 }

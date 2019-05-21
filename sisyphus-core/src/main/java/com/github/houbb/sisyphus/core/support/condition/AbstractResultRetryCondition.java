@@ -30,6 +30,7 @@ public abstract class AbstractResultRetryCondition<R> implements RetryCondition<
      * 判断是否有结果信息
      * 1. 有，返回 true
      * 2. 无，返回 false
+     * @param result 返回对象
      * @return 是否有结果
      */
     protected boolean hasResult(final R result) {

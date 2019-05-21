@@ -2,8 +2,8 @@ package com.github.houbb.sisyphus.core.support.block;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
 import com.github.houbb.sisyphus.api.exception.RetryException;
+import com.github.houbb.sisyphus.api.model.WaitTime;
 import com.github.houbb.sisyphus.api.support.block.RetryBlock;
-import com.github.houbb.sisyphus.api.support.wait.WaitTime;
 
 /**
  * 线程沉睡的阻塞方式

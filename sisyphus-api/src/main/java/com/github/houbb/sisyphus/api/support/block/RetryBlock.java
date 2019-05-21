@@ -1,6 +1,6 @@
 package com.github.houbb.sisyphus.api.support.block;
 
-import com.github.houbb.sisyphus.api.support.wait.WaitTime;
+import com.github.houbb.sisyphus.api.model.WaitTime;
 
 /**
  * 阻塞的方式

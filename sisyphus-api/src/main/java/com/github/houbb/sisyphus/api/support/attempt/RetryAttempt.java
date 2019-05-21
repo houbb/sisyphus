@@ -1,5 +1,7 @@
 package com.github.houbb.sisyphus.api.support.attempt;
 
+import com.github.houbb.sisyphus.api.model.AttemptTime;
+
 import java.util.List;
 
 /**
@@ -18,13 +20,19 @@ public interface RetryAttempt<R> {
      * 当前执行次数
      * @return 次数
      */
-    int times();
+    int number();
 
     /**
      * 异常信息
      * @return 异常信息
      */
     Throwable cause();
+
+    /**
+     * 消耗时间
+     * @return 消耗时间
+     */
+    AttemptTime time();
 
     /**
      * 重试的历史信息

@@ -1,12 +1,11 @@
-package com.github.houbb.sisyphus.core.support.wait;
+package com.github.houbb.sisyphus.core.model;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
-import com.github.houbb.sisyphus.api.support.wait.WaitTime;
+import com.github.houbb.sisyphus.api.model.WaitTime;
 
 import java.util.concurrent.TimeUnit;
 
 /**
- * 默认等待时间
  * @author binbin.hou
  * @since 1.0.0
  */
@@ -14,12 +13,12 @@ import java.util.concurrent.TimeUnit;
 public class DefaultWaitTime implements WaitTime {
 
     /**
-     * 时间
+     * 等待时间
      */
     private final long time;
 
     /**
-     * 单位
+     * 时间单位
      */
     private final TimeUnit unit;
 
@@ -30,12 +29,12 @@ public class DefaultWaitTime implements WaitTime {
 
     @Override
     public long time() {
-        return time;
+        return this.time;
     }
 
     @Override
     public TimeUnit unit() {
-        return unit;
+        return this.unit;
     }
 
 }

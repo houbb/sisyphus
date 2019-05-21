@@ -1,8 +1,9 @@
-package com.github.houbb.sisyphus.api.support.wait;
+package com.github.houbb.sisyphus.api.model;
 
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 等待时间接口
  * @author binbin.hou
  * @since 1.0.0
  */

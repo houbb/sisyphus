@@ -24,7 +24,7 @@ public class MaxAttemptRetryStop implements RetryStop {
 
     @Override
     public boolean stop(RetryAttempt attempt) {
-        int times = attempt.times();
+        int times = attempt.number();
         return times >= maxAttempt;
     }
 

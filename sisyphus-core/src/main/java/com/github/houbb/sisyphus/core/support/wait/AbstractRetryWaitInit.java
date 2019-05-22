@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @since 0.0.1
  */
 @ThreadSafe
-public abstract class RetryWaitInit implements RetryWait {
+public abstract class AbstractRetryWaitInit implements RetryWait {
 
     @Override
     public WaitTime waitTime(RetryAttempt retryAttempt) {

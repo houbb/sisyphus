@@ -14,7 +14,7 @@ import java.util.List;
  * @since 0.0.1
  */
 @ThreadSafe
-public abstract class RetryListenInit implements RetryListen {
+public abstract class AbstractRetryListenInit implements RetryListen {
 
     @Override
     public <R> void listen(RetryAttempt<R> attempt) {

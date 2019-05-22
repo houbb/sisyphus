@@ -12,6 +12,21 @@ import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 @ThreadSafe
 public class AlwaysFalseRetryCondition implements RetryCondition {
 
+    /**
+     * 内部静态类
+     */
+    private static class AlwaysFalseRetryConditionHolder {
+        private static final AlwaysFalseRetryCondition INSTANCE = new AlwaysFalseRetryCondition();
+    }
+
+    /**
+     * 获取单例
+     * @return 单例
+     */
+    public static RetryCondition getInstance() {
+        return AlwaysFalseRetryConditionHolder.INSTANCE;
+    }
+
     @Override
     public boolean condition(RetryAttempt retryAttempt) {
         return false;

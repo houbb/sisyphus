@@ -14,18 +14,17 @@ import java.util.List;
  * 2. 如果有更加复杂的需求，用户应该自定定义。
  * @author binbin.hou
  * @since 0.0.1
- * @param <R> 泛型
  */
 @ThreadSafe
-public abstract class RetryConditionInit<R> implements RetryCondition<R> {
+public abstract class AbstractRetryConditionInit implements RetryCondition {
 
     @Override
-    public boolean condition(RetryAttempt<R> retryAttempt) {
-        Pipeline<RetryCondition<R>> pipeline = new DefaultPipeline<>();
+    public boolean condition(RetryAttempt retryAttempt) {
+        Pipeline<RetryCondition> pipeline = new DefaultPipeline<>();
         this.init(pipeline, retryAttempt);
 
-        List<RetryCondition<R>> retryConditions = pipeline.list();
-        for (RetryCondition<R> condition : retryConditions) {
+        List<RetryCondition> retryConditions = pipeline.list();
+        for (RetryCondition condition : retryConditions) {
             if (condition.condition(retryAttempt)) {
                 return true;
             }
@@ -39,7 +38,7 @@ public abstract class RetryConditionInit<R> implements RetryCondition<R> {
      * @param pipeline     当前列表泳道
      * @param retryAttempt 执行信息
      */
-    protected abstract void init(final Pipeline<RetryCondition<R>> pipeline,
+    protected abstract void init(final Pipeline<RetryCondition> pipeline,
                                  final RetryAttempt retryAttempt);
 
 }

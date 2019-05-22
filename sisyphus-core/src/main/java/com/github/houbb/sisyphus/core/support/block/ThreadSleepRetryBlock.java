@@ -15,7 +15,8 @@ import com.github.houbb.sisyphus.api.support.block.RetryBlock;
 public class ThreadSleepRetryBlock implements RetryBlock {
 
     /**
-     * 获取横向
+     * 获取单例
+     * @return 获取单例
      */
     public static RetryBlock getInstance() {
         return InstanceFactory.getInstance().singleton(ThreadSleepRetryBlock.class);

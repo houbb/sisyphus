@@ -22,6 +22,7 @@ public final class RetryConditions {
 
     /**
      * 结果为空
+     * @param <R> 单例
      * @return 结果为空
      */
     public static <R> RetryCondition<R> isNullResult() {
@@ -35,6 +36,7 @@ public final class RetryConditions {
 
     /**
      * 结果不为空
+     * @param <R> 单例
      * @return 结果为空
      */
     public static <R> RetryCondition<R> isNotNullResult() {
@@ -49,6 +51,7 @@ public final class RetryConditions {
     /**
      * 结果等于预期值
      * @param excepted 预期值
+     * @param <R> 单例
      * @return 结果为空
      */
     public static <R> RetryCondition<R> isEqualsResult(final R excepted) {
@@ -66,6 +69,7 @@ public final class RetryConditions {
     /**
      * 结果不等于预期值
      * @param excepted 预期值
+     * @param <R> 单例
      * @return 结果为空
      */
     public static <R> RetryCondition<R> isNotEqualsResult(final R excepted) {

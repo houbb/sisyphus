@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sisyphus-test</artifactId>
-    <description>The test module for sisyphus.</description>
+    <artifactId>sisyphus-annotation</artifactId>
+    <description>The annotation module of sisyphus.</description>
 
     <dependencies>
         <!--============================== SELF ==============================-->
@@ -21,18 +21,9 @@
 
         <!--============================== OTHER ==============================-->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.rholder</groupId>
-            <artifactId>guava-retrying</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.retry</groupId>
-            <artifactId>spring-retry</artifactId>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
         </dependency>
     </dependencies>
+
 </project>

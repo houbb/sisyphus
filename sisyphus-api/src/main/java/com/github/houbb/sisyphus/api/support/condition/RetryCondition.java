@@ -4,6 +4,8 @@ import com.github.houbb.sisyphus.api.model.RetryAttempt;
 
 /**
  * 重试执行的条件
+ *
+ * 注意：实现类应该有无参构造函数
  * @author binbin.hou
  * @since 0.0.1
  */

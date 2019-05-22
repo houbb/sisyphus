@@ -1,5 +1,6 @@
 package com.github.houbb.sisyphus.core.support.condition;
 
+import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
 import com.github.houbb.heaven.support.pipeline.Pipeline;
 import com.github.houbb.heaven.util.lang.ObjectUtil;
 import com.github.houbb.heaven.util.util.ArrayUtil;
@@ -26,12 +27,7 @@ public final class RetryConditions {
      * @return 结果为空
      */
     public static <R> RetryCondition<R> isNullResult() {
-        return new AbstractResultRetryCondition<R>() {
-            @Override
-            protected boolean resultCondition(R result) {
-                return ObjectUtil.isNull(result);
-            }
-        };
+        return InstanceFactory.getInstance().singleton(NullResultRetryCondition.class);
     }
 
     /**
@@ -40,16 +36,12 @@ public final class RetryConditions {
      * @return 结果为空
      */
     public static <R> RetryCondition<R> isNotNullResult() {
-        return new AbstractResultRetryCondition<R>() {
-            @Override
-            protected boolean resultCondition(R result) {
-                return ObjectUtil.isNotNull(result);
-            }
-        };
+        return InstanceFactory.getInstance().singleton(NotNullResultRetryCondition.class);
     }
 
     /**
      * 结果等于预期值
+     * 注意：null 值不等于任何值。
      * @param excepted 预期值
      * @param <R> 单例
      * @return 结果为空
@@ -90,12 +82,7 @@ public final class RetryConditions {
      * @since 0.0.2
      */
     public static RetryCondition hasExceptionCause() {
-        return new AbstractCauseRetryCondition() {
-            @Override
-            protected boolean causeCondition(Throwable throwable) {
-                return ObjectUtil.isNotNull(throwable);
-            }
-        };
+        return InstanceFactory.getInstance().singleton(ExceptionCauseRetryCondition.class);
     }
 
     /**

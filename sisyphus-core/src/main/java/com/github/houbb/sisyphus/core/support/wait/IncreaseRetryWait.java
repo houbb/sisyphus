@@ -39,7 +39,8 @@ public class IncreaseRetryWait implements RetryWait {
 
     @Override
     public WaitTime waitTime(RetryAttempt retryAttempt) {
-        long result = initMills + increaseMills;
+        final int previousAttempt = retryAttempt.attempt()-1;
+        long result = initMills + previousAttempt*increaseMills;
         if(result <= 0) {
             result = 0L;
         }

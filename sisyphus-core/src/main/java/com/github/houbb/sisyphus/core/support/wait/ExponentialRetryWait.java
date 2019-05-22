@@ -52,7 +52,8 @@ public class ExponentialRetryWait implements RetryWait {
 
     @Override
     public WaitTime waitTime(RetryAttempt retryAttempt) {
-        double exp = Math.pow(multiplier, retryAttempt.attempt());
+        final int previousAttempt = retryAttempt.attempt()-1;
+        double exp = Math.pow(multiplier, previousAttempt);
         long result = Math.round(initMills * exp);
 
         if (result > maxMills) {

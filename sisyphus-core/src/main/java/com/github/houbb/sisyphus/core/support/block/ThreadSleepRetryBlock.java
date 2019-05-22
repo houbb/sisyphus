@@ -1,6 +1,7 @@
 package com.github.houbb.sisyphus.core.support.block;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
+import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
 import com.github.houbb.sisyphus.api.exception.RetryException;
 import com.github.houbb.sisyphus.api.model.WaitTime;
 import com.github.houbb.sisyphus.api.support.block.RetryBlock;
@@ -12,6 +13,13 @@ import com.github.houbb.sisyphus.api.support.block.RetryBlock;
  */
 @ThreadSafe
 public class ThreadSleepRetryBlock implements RetryBlock {
+
+    /**
+     * 获取横向
+     */
+    public static RetryBlock getInstance() {
+        return InstanceFactory.getInstance().singleton(ThreadSleepRetryBlock.class);
+    }
 
     @Override
     public void block(WaitTime waitTime) {

@@ -1,6 +1,7 @@
 package com.github.houbb.sisyphus.core.support.wait;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
+import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
 import com.github.houbb.sisyphus.api.model.RetryAttempt;
 import com.github.houbb.sisyphus.api.model.WaitTime;
 import com.github.houbb.sisyphus.api.support.wait.RetryWait;
@@ -17,6 +18,14 @@ import java.util.concurrent.TimeUnit;
  */
 @ThreadSafe
 public class NoRetryWait implements RetryWait {
+
+    /**
+     * 获取一个单例示例
+     * @return 单例示例
+     */
+    public static RetryWait getInstance() {
+        return InstanceFactory.getInstance().singleton(NoRetryWait.class);
+    }
 
     @Override
     public WaitTime waitTime(RetryAttempt retryAttempt) {

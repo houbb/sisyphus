@@ -12,6 +12,7 @@ import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 import com.github.houbb.sisyphus.core.context.DefaultRetryContext;
 import com.github.houbb.sisyphus.core.support.block.ThreadSleepRetryBlock;
 import com.github.houbb.sisyphus.core.support.condition.AlwaysFalseRetryCondition;
+import com.github.houbb.sisyphus.core.support.condition.RetryConditions;
 import com.github.houbb.sisyphus.core.support.listen.NoRetryListen;
 import com.github.houbb.sisyphus.core.support.recover.NoRecover;
 import com.github.houbb.sisyphus.core.support.stop.MaxAttemptRetryStop;
@@ -31,23 +32,23 @@ public class Retryer<R> {
 
     /**
      * 执行重试的条件
-     * 1. 默认不进行重试
+     * 1. 默认在遇到异常的时候进行重试
      * 2. 支持多个条件，任意一个满足则满足。如果用户有更特殊的需求，应该自己定义。
      */
-    private RetryCondition condition = InstanceFactory.getInstance().singleton(AlwaysFalseRetryCondition.class);
+    private RetryCondition condition = RetryConditions.hasExceptionCause();
 
     /**
      * 等待的策略
      * 1. 默认不进行等待
      * 2. 支持多个等待策略混合。将所有的混合策略时间加在一起。
      */
-    private RetryWait waits =  InstanceFactory.getInstance().singleton(NoRetryWait.class);
+    private RetryWait waits =  NoRetryWait.getInstance();
 
     /**
      * 阻塞的方式
      * 1. 默认采用线程沉睡的方式
      */
-    private RetryBlock block = InstanceFactory.getInstance().singleton(ThreadSleepRetryBlock.class);
+    private RetryBlock block = ThreadSleepRetryBlock.getInstance();
 
     /**
      * 停止的策略
@@ -60,13 +61,13 @@ public class Retryer<R> {
      * 监听器
      * 1. 默认不进行任何操作
      */
-    private RetryListen listen = InstanceFactory.getInstance().singleton(NoRetryListen.class);
+    private RetryListen listen = NoRetryListen.getInstance();
 
     /**
      * 恢复策略
      * 1. 默认不进行任何操作
      */
-    private Recover recover = InstanceFactory.getInstance().singleton(NoRecover.class);
+    private Recover recover = NoRecover.getInstance();
 
     /**
      * 创建实例化对象

@@ -33,8 +33,8 @@
 ```xml
 <plugin>
     <groupId>com.github.houbb</groupId>
-    <artifactId>sisyphus</artifactId>
-    <version>0.0.1</version>
+    <artifactId>sisyphus-core</artifactId>
+    <version>0.0.2</version>
 </plugin>
 ```
 
@@ -45,12 +45,11 @@
 ```java
 public void helloTest() {
     Retryer.<String>newInstance()
-            .condition(RetryConditions.isEqualsResult("fail"))
             .retry(new Callable<String>() {
                 @Override
                 public String call() throws Exception {
                     System.out.println("called...");
-                    return "fail";
+                    throw new RuntimeException();
                 }
             });
 }
@@ -58,15 +57,11 @@ public void helloTest() {
 
 ## 代码分析
 
-- condition
-
-指定了重试生效的条件：如果执行结果返回 fail.
-
 - retry
 
 指定一个 callable 的实现。
 
-我们打印一条日志，并且返回 fail。
+我们打印一条日志，并且模拟一个程序异常。
 
 ## 日志信息
 
@@ -77,5 +72,9 @@ called...
 called...
 called...
 ```
+
+和一些其他异常信息。
+
+重试触发的条件，默认是程序发生了异常
 
 这里的重试间隔默认为没有时间间隔，一共尝试3次。（包括第一次程序本身执行）

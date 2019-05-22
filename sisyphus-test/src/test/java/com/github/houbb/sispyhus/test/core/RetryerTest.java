@@ -29,7 +29,7 @@ public class RetryerTest {
     /**
      * 默认异常进行重试
      */
-    @Test
+    @Test(expected = RuntimeException.class)
     public void helloTest() {
         Retryer.<String>newInstance()
                 .retry(new Callable<String>() {

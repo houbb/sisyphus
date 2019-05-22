@@ -15,6 +15,7 @@ public interface Recover {
     /**
      * 执行恢复
      * @param retryAttempt 重试信息
+     * @param <R> 泛型
      */
     <R> void recover(final RetryAttempt<R> retryAttempt);
 

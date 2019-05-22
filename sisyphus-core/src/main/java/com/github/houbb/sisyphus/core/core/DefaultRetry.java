@@ -1,9 +1,11 @@
 package com.github.houbb.sisyphus.core.core;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
+import com.github.houbb.heaven.util.lang.ObjectUtil;
 import com.github.houbb.heaven.util.util.DateUtil;
 import com.github.houbb.sisyphus.api.context.RetryContext;
 import com.github.houbb.sisyphus.api.core.Retry;
+import com.github.houbb.sisyphus.api.exception.RetryException;
 import com.github.houbb.sisyphus.api.model.RetryAttempt;
 import com.github.houbb.sisyphus.api.model.WaitTime;
 import com.github.houbb.sisyphus.api.support.block.RetryBlock;
@@ -71,6 +73,10 @@ public class DefaultRetry<R> implements Retry<R> {
             recover.recover(retryAttempt);
         }
 
+        // 如果最后一次有异常，直接抛出异常 v0.0.2
+        if(ObjectUtil.isNotNull(retryAttempt.cause())) {
+            throw new RetryException(retryAttempt.cause());
+        }
         // 返回最后一次尝试的结果
         return retryAttempt.result();
     }

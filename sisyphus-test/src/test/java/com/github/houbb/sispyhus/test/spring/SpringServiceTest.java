@@ -19,7 +19,7 @@ public class SpringServiceTest {
     @Autowired
     private SpringService springService;
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void queryTest() {
         springService.query();
     }

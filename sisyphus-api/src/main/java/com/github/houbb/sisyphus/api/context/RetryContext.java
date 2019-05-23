@@ -23,10 +23,10 @@ public interface RetryContext<R>  {
     RetryCondition condition();
 
     /**
-     * 等待策略列表
-     * @return 策略列表
+     * 重试等待上下文
+     * @return 重试等待上下文
      */
-    RetryWait waits();
+    RetryWaitContext<R> waitContext();
 
     /**
      * 阻塞方式

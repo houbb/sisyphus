@@ -1,14 +1,13 @@
 package com.github.houbb.sisyphus.core.context;
 
 import com.github.houbb.heaven.annotation.NotThreadSafe;
-import com.github.houbb.heaven.util.common.ArgUtil;
 import com.github.houbb.sisyphus.api.context.RetryContext;
+import com.github.houbb.sisyphus.api.context.RetryWaitContext;
 import com.github.houbb.sisyphus.api.support.block.RetryBlock;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 import com.github.houbb.sisyphus.api.support.listen.RetryListen;
 import com.github.houbb.sisyphus.api.support.recover.Recover;
 import com.github.houbb.sisyphus.api.support.stop.RetryStop;
-import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 
 import java.util.concurrent.Callable;
 
@@ -27,9 +26,9 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
     private RetryCondition condition;
 
     /**
-     * 等待策略列表
+     * 重试等待上下文
      */
-    private RetryWait waits;
+    private RetryWaitContext<R> waitContext;
 
     /**
      * 阻塞实现
@@ -67,12 +66,12 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
     }
 
     @Override
-    public RetryWait waits() {
-        return waits;
+    public RetryWaitContext<R> waitContext() {
+        return waitContext;
     }
 
-    public DefaultRetryContext<R> waits(RetryWait waits) {
-        this.waits = waits;
+    public DefaultRetryContext<R> waitContext(RetryWaitContext<R> waitContext) {
+        this.waitContext = waitContext;
         return this;
     }
 

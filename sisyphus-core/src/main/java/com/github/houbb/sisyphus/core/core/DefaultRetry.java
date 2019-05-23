@@ -1,9 +1,11 @@
 package com.github.houbb.sisyphus.core.core;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
+import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
 import com.github.houbb.heaven.util.lang.ObjectUtil;
 import com.github.houbb.heaven.util.util.DateUtil;
 import com.github.houbb.sisyphus.api.context.RetryContext;
+import com.github.houbb.sisyphus.api.context.RetryWaitContext;
 import com.github.houbb.sisyphus.api.core.Retry;
 import com.github.houbb.sisyphus.api.exception.RetryException;
 import com.github.houbb.sisyphus.api.model.RetryAttempt;
@@ -14,6 +16,7 @@ import com.github.houbb.sisyphus.api.support.listen.RetryListen;
 import com.github.houbb.sisyphus.api.support.recover.Recover;
 import com.github.houbb.sisyphus.api.support.stop.RetryStop;
 import com.github.houbb.sisyphus.api.support.wait.RetryWait;
+import com.github.houbb.sisyphus.core.context.DefaultRetryWaitContext;
 import com.github.houbb.sisyphus.core.model.DefaultAttemptTime;
 import com.github.houbb.sisyphus.core.model.DefaultRetryAttempt;
 
@@ -44,16 +47,18 @@ public class DefaultRetry<R> implements Retry<R> {
         //2. 是否进行重试
         //2.1 触发执行的 condition
         //2.2 不触发 stop 策略
+        final RetryWaitContext waitContext = context.waitContext();
         final RetryCondition retryCondition = context.condition();
         final RetryStop retryStop = context.stop();
         final RetryBlock retryBlock = context.block();
-        final RetryWait retryWait = context.waits();
+        final RetryWait retryWait = (RetryWait) InstanceFactory.getInstance().threadSafe(waitContext.retryWait());
         final RetryListen retryListen = context.listen();
 
         while (retryCondition.condition(retryAttempt)
                 && !retryStop.stop(retryAttempt)) {
             // 线程阻塞
-            WaitTime waitTime = retryWait.waitTime(retryAttempt);
+            RetryWaitContext tempContext = buildRetryWaitContext(waitContext, retryAttempt);
+            WaitTime waitTime = retryWait.waitTime(tempContext);
             retryBlock.block(waitTime);
 
             // 每一次执行会更新 executeResult
@@ -79,6 +84,23 @@ public class DefaultRetry<R> implements Retry<R> {
         }
         // 返回最后一次尝试的结果
         return retryAttempt.result();
+    }
+
+    /**
+     * 构建重试等待上下文
+     * @param waitContext 等待上下文
+     * @param retryAttempt 重试信息
+     * @return 构建后的等待信息
+     */
+    private RetryWaitContext buildRetryWaitContext(RetryWaitContext waitContext,
+                                                   final RetryAttempt<R> retryAttempt) {
+        DefaultRetryWaitContext<R> context = (DefaultRetryWaitContext<R>)waitContext;
+        context.attempt(retryAttempt.attempt());
+        context.result(retryAttempt.result());
+        context.history(retryAttempt.history());
+        context.cause(retryAttempt.cause());
+        context.time(retryAttempt.time());
+        return context;
     }
 
     /**

@@ -38,7 +38,7 @@ public class RetryMethodHandler implements IMethodHandler {
         final Callable callable = buildCallable(proxy, method, args);
         // 可以优化的点，让用户指定是否为线程安全。比如指定注解，则使用单例。
         // 这里可以对 getInstance() 进行优化封装。
-        final RetryCondition retryCondition = InstanceFactory.getInstance().threadSafe(retry.condtion());
+        final RetryCondition retryCondition = InstanceFactory.getInstance().threadSafe(retry.condition());
         final RetryListen retryListen = InstanceFactory.getInstance().threadSafe(retry.listen());
         final RetryWait retryWait = InstanceFactory.getInstance().threadSafe(retry.waits());
         final Recover recover = InstanceFactory.getInstance().threadSafe(retry.recover());
@@ -48,7 +48,7 @@ public class RetryMethodHandler implements IMethodHandler {
                 .condition(retryCondition)
                 .listen(retryListen)
                 .recover(recover)
-                .waits(retryWait)
+                .retryWaitContext(null)
                 .retry(callable);
     }
 

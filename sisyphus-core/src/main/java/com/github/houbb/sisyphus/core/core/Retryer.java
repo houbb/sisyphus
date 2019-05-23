@@ -1,17 +1,15 @@
 package com.github.houbb.sisyphus.core.core;
 
 import com.github.houbb.heaven.annotation.NotThreadSafe;
-import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
 import com.github.houbb.heaven.util.common.ArgUtil;
+import com.github.houbb.sisyphus.api.context.RetryWaitContext;
 import com.github.houbb.sisyphus.api.support.block.RetryBlock;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 import com.github.houbb.sisyphus.api.support.listen.RetryListen;
 import com.github.houbb.sisyphus.api.support.recover.Recover;
 import com.github.houbb.sisyphus.api.support.stop.RetryStop;
-import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 import com.github.houbb.sisyphus.core.context.DefaultRetryContext;
 import com.github.houbb.sisyphus.core.support.block.ThreadSleepRetryBlock;
-import com.github.houbb.sisyphus.core.support.condition.AlwaysFalseRetryCondition;
 import com.github.houbb.sisyphus.core.support.condition.RetryConditions;
 import com.github.houbb.sisyphus.core.support.listen.NoRetryListen;
 import com.github.houbb.sisyphus.core.support.recover.NoRecover;
@@ -36,13 +34,6 @@ public class Retryer<R> {
      * 2. 支持多个条件，任意一个满足则满足。如果用户有更特殊的需求，应该自己定义。
      */
     private RetryCondition condition = RetryConditions.hasExceptionCause();
-
-    /**
-     * 等待的策略
-     * 1. 默认不进行等待
-     * 2. 支持多个等待策略混合。将所有的混合策略时间加在一起。
-     */
-    private RetryWait waits =  NoRetryWait.getInstance();
 
     /**
      * 阻塞的方式
@@ -70,6 +61,11 @@ public class Retryer<R> {
     private Recover recover = NoRecover.getInstance();
 
     /**
+     * 重试等待上下文
+     */
+    private RetryWaitContext<R> waitContext = RetryWaiter.<R>retryWait(NoRetryWait.class).retryWaitContext();
+
+    /**
      * 创建实例化对象
      * @param <R> 泛型
      * @return 结果
@@ -91,16 +87,16 @@ public class Retryer<R> {
         return this;
     }
 
-    /**
-     * 最大等待策略
-     *
-     * @param waits 等待策略
-     * @return this
-     */
-    public Retryer<R> waits(RetryWait waits) {
-        ArgUtil.notNull(waits, "waits");
 
-        this.waits = waits;
+    /**
+     * 重试等待上下文
+     * @param retryWaitContext 重试等待上下文
+     * @return 重试等待上下文
+     */
+    public Retryer retryWaitContext(RetryWaitContext<R> retryWaitContext) {
+        ArgUtil.notNull(retryWaitContext, "waitContext");
+
+        this.waitContext = retryWaitContext;
         return this;
     }
 
@@ -181,10 +177,10 @@ public class Retryer<R> {
         // 初始化
         DefaultRetryContext<R> context = new DefaultRetryContext<>();
         context.callable(callable)
+                .waitContext(waitContext)
                 .block(block)
                 .stop(stop)
                 .condition(condition)
-                .waits(waits)
                 .listen(listen)
                 .recover(recover);
 

@@ -2,12 +2,9 @@ package com.github.houbb.sisyphus.core.support.wait;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
 import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
-import com.github.houbb.sisyphus.api.model.RetryAttempt;
+import com.github.houbb.sisyphus.api.context.RetryWaitContext;
 import com.github.houbb.sisyphus.api.model.WaitTime;
 import com.github.houbb.sisyphus.api.support.wait.RetryWait;
-import com.github.houbb.sisyphus.core.model.DefaultWaitTime;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * 无时间等待
@@ -17,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @since 0.0.1
  */
 @ThreadSafe
-public class NoRetryWait implements RetryWait {
+public class NoRetryWait extends AbstractRetryWait {
 
     /**
      * 获取一个单例示例
@@ -28,8 +25,8 @@ public class NoRetryWait implements RetryWait {
     }
 
     @Override
-    public WaitTime waitTime(RetryAttempt retryAttempt) {
-        return new DefaultWaitTime(0, TimeUnit.MILLISECONDS);
+    public WaitTime waitTime(RetryWaitContext retryWaitContext) {
+        return super.rangeCorrect(0, retryWaitContext.min(), retryWaitContext.max());
     }
 
 }

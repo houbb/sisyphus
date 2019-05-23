@@ -36,14 +36,13 @@ public @interface Retry {
      * 重试触发的场景
      * @return 重试触发的场景
      */
-    Class<? extends RetryCondition> condtion() default ExceptionCauseRetryCondition.class;
+    Class<? extends RetryCondition> condition() default ExceptionCauseRetryCondition.class;
 
     /**
      * 设置等待策略
      * 1. 默认不进行任何等待
      * 2. 这里使用的对象必须是有无参构造函数的对象。
      * 3. 如果想使用原来的类，可以统一调整入参。waitContext
-     * TODO：保证接口的统一性。
      * @return 等待策略
      */
     Class<? extends RetryWait> waits() default NoRetryWait.class;

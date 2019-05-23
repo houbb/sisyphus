@@ -3,7 +3,7 @@ package com.github.houbb.sisyphus.core.support.wait;
 import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
 import com.github.houbb.heaven.support.pipeline.Pipeline;
 import com.github.houbb.heaven.util.util.ArrayUtil;
-import com.github.houbb.sisyphus.api.model.RetryAttempt;
+import com.github.houbb.sisyphus.api.context.RetryWaitContext;
 import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 
 /**
@@ -25,7 +25,7 @@ public final class RetryWaits {
 
         return new AbstractRetryWaitInit() {
             @Override
-            protected void init(Pipeline<RetryWait> pipeline, RetryAttempt retryAttempt) {
+            protected void init(Pipeline<RetryWait> pipeline, RetryWaitContext retryWaitContext) {
                 for(RetryWait retryWait : retryWaits) {
                     pipeline.addFirst(retryWait);
                 }

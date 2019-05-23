@@ -3,15 +3,18 @@ package com.github.houbb.sisyphus.annotation.proxy.cglib;
 import com.github.houbb.heaven.annotation.ThreadSafe;
 import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
 import com.github.houbb.heaven.support.proxy.IProxy;
+import com.github.houbb.sisyphus.annotation.annotation.Retry;
 import com.github.houbb.sisyphus.annotation.proxy.RetryMethodHandler;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
  * CGLIB 代理
+ *
  * @author binbin.hou
  * @since 0.0.3
  */
@@ -29,8 +32,15 @@ public class CglibProxy implements IProxy, MethodInterceptor {
 
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-        return InstanceFactory.getInstance().threadSafe(RetryMethodHandler.class)
-                .handle(target, method, objects);
+        try {
+            return InstanceFactory.getInstance().threadSafe(RetryMethodHandler.class)
+                    .handle(target, method, objects);
+        } catch (InvocationTargetException ex) {
+            // 程序内部没有处理的异常
+            throw ex.getTargetException();
+        } catch (Throwable throwable) {
+            throw throwable;
+        }
     }
 
     @Override

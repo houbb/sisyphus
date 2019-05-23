@@ -16,6 +16,9 @@ import com.github.houbb.sisyphus.core.support.recover.NoRecover;
 import com.github.houbb.sisyphus.core.support.stop.MaxAttemptRetryStop;
 import com.github.houbb.sisyphus.core.support.wait.NoRetryWait;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
@@ -63,7 +66,7 @@ public class Retryer<R> {
     /**
      * 重试等待上下文
      */
-    private RetryWaitContext<R> waitContext = RetryWaiter.<R>retryWait(NoRetryWait.class).retryWaitContext();
+    private List<RetryWaitContext<R>> waitContexts = Collections.singletonList(RetryWaiter.<R>retryWait(NoRetryWait.class).retryWaitContext());
 
     /**
      * 创建实例化对象
@@ -90,13 +93,12 @@ public class Retryer<R> {
 
     /**
      * 重试等待上下文
-     * @param retryWaitContext 重试等待上下文
+     * @param retryWaitContexts 重试等待上下文数组
      * @return 重试等待上下文
      */
-    public Retryer retryWaitContext(RetryWaitContext<R> retryWaitContext) {
-        ArgUtil.notNull(retryWaitContext, "waitContext");
-
-        this.waitContext = retryWaitContext;
+    public Retryer retryWaitContext(RetryWaitContext<R> ... retryWaitContexts) {
+        ArgUtil.notEmpty(retryWaitContexts, "retryWaitContexts");
+        this.waitContexts = Arrays.asList(retryWaitContexts);
         return this;
     }
 
@@ -177,7 +179,7 @@ public class Retryer<R> {
         // 初始化
         DefaultRetryContext<R> context = new DefaultRetryContext<>();
         context.callable(callable)
-                .waitContext(waitContext)
+                .waitContext(waitContexts)
                 .block(block)
                 .stop(stop)
                 .condition(condition)

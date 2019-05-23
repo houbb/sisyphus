@@ -44,7 +44,7 @@ public class RetryWaiter<R> {
      * 1. 如果是 {@link com.github.houbb.sisyphus.core.support.wait.ExponentialRetryWait} 则为 {@link com.github.houbb.sisyphus.core.constant.RetryWaitConst#MULTIPLY_FACTOR}
      * 2. 如果是 {@link com.github.houbb.sisyphus.core.support.wait.IncreaseRetryWait} 则为 {@link com.github.houbb.sisyphus.core.constant.RetryWaitConst#INCREASE_MILLS_FACTOR}
      */
-    private double factor = 0;
+    private double factor = Double.MIN_VALUE;
 
     /**
      * 构造器私有化

@@ -3,11 +3,9 @@ package com.github.houbb.sisyphus.annotation.annotation;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 import com.github.houbb.sisyphus.api.support.listen.RetryListen;
 import com.github.houbb.sisyphus.api.support.recover.Recover;
-import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 import com.github.houbb.sisyphus.core.support.condition.ExceptionCauseRetryCondition;
 import com.github.houbb.sisyphus.core.support.listen.NoRetryListen;
 import com.github.houbb.sisyphus.core.support.recover.NoRecover;
-import com.github.houbb.sisyphus.core.support.wait.NoRetryWait;
 
 import java.lang.annotation.*;
 
@@ -39,13 +37,11 @@ public @interface Retry {
     Class<? extends RetryCondition> condition() default ExceptionCauseRetryCondition.class;
 
     /**
-     * 设置等待策略
-     * 1. 默认不进行任何等待
-     * 2. 这里使用的对象必须是有无参构造函数的对象。
-     * 3. 如果想使用原来的类，可以统一调整入参。waitContext
+     * 等待策略
+     * 1. 支持指定多个，如果不指定，则不进行任何等待，
      * @return 等待策略
      */
-    Class<? extends RetryWait> waits() default NoRetryWait.class;
+    RetryWait[] waits() default {};
 
     /**
      * 监听器

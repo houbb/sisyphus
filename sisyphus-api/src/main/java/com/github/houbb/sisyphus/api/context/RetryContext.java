@@ -7,6 +7,7 @@ import com.github.houbb.sisyphus.api.support.recover.Recover;
 import com.github.houbb.sisyphus.api.support.stop.RetryStop;
 import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
@@ -26,7 +27,7 @@ public interface RetryContext<R>  {
      * 重试等待上下文
      * @return 重试等待上下文
      */
-    RetryWaitContext<R> waitContext();
+    List<RetryWaitContext<R>> waitContext();
 
     /**
      * 阻塞方式

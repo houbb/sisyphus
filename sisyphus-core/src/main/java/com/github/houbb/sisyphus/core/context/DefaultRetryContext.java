@@ -9,6 +9,7 @@ import com.github.houbb.sisyphus.api.support.listen.RetryListen;
 import com.github.houbb.sisyphus.api.support.recover.Recover;
 import com.github.houbb.sisyphus.api.support.stop.RetryStop;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
@@ -28,7 +29,7 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
     /**
      * 重试等待上下文
      */
-    private RetryWaitContext<R> waitContext;
+    private List<RetryWaitContext<R>> waitContext;
 
     /**
      * 阻塞实现
@@ -66,11 +67,11 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
     }
 
     @Override
-    public RetryWaitContext<R> waitContext() {
+    public List<RetryWaitContext<R>> waitContext() {
         return waitContext;
     }
 
-    public DefaultRetryContext<R> waitContext(RetryWaitContext<R> waitContext) {
+    public DefaultRetryContext<R> waitContext(List<RetryWaitContext<R>> waitContext) {
         this.waitContext = waitContext;
         return this;
     }

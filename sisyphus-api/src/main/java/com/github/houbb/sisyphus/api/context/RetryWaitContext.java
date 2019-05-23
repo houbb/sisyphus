@@ -8,7 +8,7 @@ import com.github.houbb.sisyphus.api.support.wait.RetryWait;
  * @author binbin.hou
  * @since 0.0.3
  */
-public interface RetryWaitContext<R> extends RetryAttempt {
+public interface RetryWaitContext<R> extends RetryAttempt<R> {
 
     /**
      * 基础值（毫秒）

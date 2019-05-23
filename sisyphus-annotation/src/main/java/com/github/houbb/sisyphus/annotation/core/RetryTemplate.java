@@ -21,14 +21,14 @@ public final class RetryTemplate {
      * @param object 原始对象
      * @return 对应的代理对象
      */
-    public static Object getProxyObject(final Object object) {
+    public static <R> R getProxyObject(final R object) {
         final ProxyTypeEnum proxyTypeEnum = ProxyFactory.getProxyType(object);
         if (ProxyTypeEnum.NONE.equals(proxyTypeEnum)) {
-            return new NoneProxy(object).proxy();
+            return (R) new NoneProxy(object).proxy();
         } else if (ProxyTypeEnum.DYNAMIC.equals(proxyTypeEnum)) {
-            return new DynamicProxy(object).proxy();
+            return (R) new DynamicProxy(object).proxy();
         } else {
-            return new CglibProxy(object).proxy();
+            return (R) new CglibProxy(object).proxy();
         }
     }
 

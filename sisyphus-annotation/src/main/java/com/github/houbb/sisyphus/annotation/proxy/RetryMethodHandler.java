@@ -3,14 +3,23 @@ package com.github.houbb.sisyphus.annotation.proxy;
 import com.github.houbb.heaven.annotation.ThreadSafe;
 import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
 import com.github.houbb.heaven.support.proxy.IMethodHandler;
+import com.github.houbb.heaven.util.lang.ObjectUtil;
+import com.github.houbb.heaven.util.util.ArrayUtil;
 import com.github.houbb.sisyphus.annotation.annotation.Retry;
+import com.github.houbb.sisyphus.annotation.annotation.RetryWait;
+import com.github.houbb.sisyphus.api.context.RetryWaitContext;
+import com.github.houbb.sisyphus.api.exception.RetryException;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 import com.github.houbb.sisyphus.api.support.listen.RetryListen;
 import com.github.houbb.sisyphus.api.support.recover.Recover;
-import com.github.houbb.sisyphus.api.support.wait.RetryWait;
+import com.github.houbb.sisyphus.core.core.RetryWaiter;
 import com.github.houbb.sisyphus.core.core.Retryer;
+import com.github.houbb.sisyphus.core.support.wait.NoRetryWait;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
@@ -33,6 +42,7 @@ public class RetryMethodHandler implements IMethodHandler {
         Retry retry = method.getAnnotation(Retry.class);
 
         //3. 特殊处理下等待时间信息
+        final RetryWaitContext[] contexts = ArrayUtil.listToArray(buildRetryWaitContext(retry));
 
         //4. 统一使用方法式编程调用
         final Callable callable = buildCallable(proxy, method, args);
@@ -40,7 +50,6 @@ public class RetryMethodHandler implements IMethodHandler {
         // 这里可以对 getInstance() 进行优化封装。
         final RetryCondition retryCondition = InstanceFactory.getInstance().threadSafe(retry.condition());
         final RetryListen retryListen = InstanceFactory.getInstance().threadSafe(retry.listen());
-        final RetryWait retryWait = InstanceFactory.getInstance().threadSafe(retry.waits());
         final Recover recover = InstanceFactory.getInstance().threadSafe(retry.recover());
 
         return Retryer.newInstance()
@@ -48,8 +57,39 @@ public class RetryMethodHandler implements IMethodHandler {
                 .condition(retryCondition)
                 .listen(retryListen)
                 .recover(recover)
-                .retryWaitContext(null)
+                .retryWaitContext(contexts)
                 .retry(callable);
+    }
+
+    /**
+     * 构建重试等待上下文
+     * @param retry 重试信息
+     * @return 上下文列表
+     */
+    private <R> List<RetryWaitContext<R>> buildRetryWaitContext(final Retry retry) {
+        List<RetryWaitContext<R>> resultList = Collections.singletonList(RetryWaiter.<R>retryWait(NoRetryWait.class).retryWaitContext());
+        if(ObjectUtil.isNull(retry)) {
+            return resultList;
+        }
+
+        RetryWait[] retryWaits = retry.waits();
+        if(ArrayUtil.isEmpty(retryWaits)) {
+            return resultList;
+        }
+
+        resultList = new ArrayList<>();
+        for(RetryWait retryWait : retryWaits) {
+            RetryWaitContext<R> context = RetryWaiter
+                    .<R>retryWait(retryWait.retryWait())
+                    .min(retryWait.min())
+                    .max(retryWait.max())
+                    .factor(retryWait.factor())
+                    .value(retryWait.value())
+                    .retryWaitContext();
+            resultList.add(context);
+        }
+
+        return resultList;
     }
 
     /**

@@ -39,13 +39,22 @@ public class RetryMethodHandler implements IMethodHandler {
         }
 
         //2. 包含注解才进行处理
+        final Callable callable = buildCallable(proxy, method, args);
         Retry retry = method.getAnnotation(Retry.class);
+        //3. 执行
+        return this.retry(retry, callable);
+    }
 
+    /**
+     * 执行重试
+     * @param retry 重试注解
+     * @param callable callable 方法
+     * @return 执行结果
+     */
+    public Object retry(final Retry retry,
+                      final Callable callable) {
         //3. 特殊处理下等待时间信息
         final RetryWaitContext[] contexts = ArrayUtil.listToArray(buildRetryWaitContext(retry));
-
-        //4. 统一使用方法式编程调用
-        final Callable callable = buildCallable(proxy, method, args);
         // 可以优化的点，让用户指定是否为线程安全。比如指定注解，则使用单例。
         // 这里可以对 getInstance() 进行优化封装。
         final RetryCondition retryCondition = InstanceFactory.getInstance().threadSafe(retry.condition());

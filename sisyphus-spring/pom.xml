@@ -9,33 +9,35 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sisyphus-test</artifactId>
-    <description>The test module for sisyphus.</description>
+    <artifactId>sisyphus-spring</artifactId>
+    <description>The spring module of sisyphus.</description>
 
     <dependencies>
+
         <!--============================== SELF ==============================-->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>sisyphus-core</artifactId>
-        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>sisyphus-annotation</artifactId>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>sisyphus-spring</artifactId>
-        </dependency>
 
         <!--============================== OTHER ==============================-->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
         </dependency>
     </dependencies>
+
 </project>

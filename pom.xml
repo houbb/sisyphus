@@ -13,6 +13,7 @@
         <module>sisyphus-core</module>
         <module>sisyphus-test</module>
         <module>sisyphus-annotation</module>
+        <module>sisyphus-spring</module>
     </modules>
 
     <properties>
@@ -39,6 +40,8 @@
         <guava-retrying.version>1.0.7</guava-retrying.version>
         <spring-retry.version>1.2.4.RELEASE</spring-retry.version>
         <cglib.version>3.1</cglib.version>
+        <spring.version>4.3.24.RELEASE</spring.version>
+        <aspectj.version>1.8.5</aspectj.version>
     </properties>
 
     <dependencyManagement>
@@ -59,6 +62,11 @@
                 <artifactId>sisyphus-annotation</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sisyphus-spring</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!--============================== INTER ==============================-->
             <dependency>
@@ -76,21 +84,38 @@
             </dependency>
 
             <dependency>
-                <groupId>com.github.rholder</groupId>
-                <artifactId>guava-retrying</artifactId>
-                <version>${guava-retrying.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.retry</groupId>
-                <artifactId>spring-retry</artifactId>
-                <version>${spring-retry.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
                 <version>${cglib.version}</version>
+            </dependency>
+
+            <!-- AOP -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.version}</version>
             </dependency>
 
         </dependencies>

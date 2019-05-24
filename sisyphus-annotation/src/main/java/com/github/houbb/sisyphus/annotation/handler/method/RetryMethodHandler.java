@@ -80,7 +80,7 @@ public class RetryMethodHandler implements IMethodHandler {
      * @param method 方法体
      * @return optional
      */
-    private Optional<RetryAbleBean> retryAbleAnnotation(final Method method) {
+    public Optional<RetryAbleBean> retryAbleAnnotation(final Method method) {
         Annotation[] annotations = method.getAnnotations();
         if(ArrayUtil.isEmpty(annotations)) {
             return Optional.empty();

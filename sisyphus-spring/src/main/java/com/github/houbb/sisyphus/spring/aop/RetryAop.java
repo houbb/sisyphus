@@ -1,6 +1,7 @@
 package com.github.houbb.sisyphus.spring.aop;
 
 import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
+import com.github.houbb.heaven.util.util.Optional;
 import com.github.houbb.sisyphus.annotation.annotation.Retry;
 import com.github.houbb.sisyphus.annotation.annotation.metadata.RetryAble;
 import com.github.houbb.sisyphus.annotation.handler.method.RetryMethodHandler;
@@ -26,30 +27,37 @@ import java.util.concurrent.Callable;
 @Component
 public class RetryAop {
 
-    @Pointcut("@annotation(com.github.houbb.sisyphus.annotation.annotation.Retry)")
+    /**
+     * 扫描所有的共有方法
+     */
+    @Pointcut("execution(public * *(..))")
     public void myPointcut() {
     }
 
+    /**
+     * 执行核心方法
+     * 1. 判断是否拥有 {@link RetryAble} 标识的注解。
+     * 2. 没有则正常执行。
+     * @param point 切点
+     * @return 结果
+     * @throws Throwable 异常信息
+     */
     @Around("myPointcut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        Method method = getCurrentMethod(point);
-        Retry retry = method.getAnnotation(Retry.class);
-        final Callable callable = buildCallable(point);
-        final RetryAbleBean retryAbleBean = buildRetryAbleBean(retry);
-        return InstanceFactory.getInstance().singleton(RetryMethodHandler.class)
-                .retryCall(retryAbleBean, callable);
-    }
+        final Method method = getCurrentMethod(point);
+        final RetryMethodHandler retryMethodHandler = InstanceFactory.getInstance()
+                .singleton(RetryMethodHandler.class);
 
-    /**
-     * 构建重试对象
-     * @param retryable 重试对象
-     * @return 对象本身
-     */
-    private RetryAbleBean buildRetryAbleBean(final Retry retryable) {
-        RetryAbleBean retryAbleBean = new RetryAbleBean();
-        retryAbleBean.annotation(retryable);
-        retryAbleBean.retryAble(retryable.annotationType().getAnnotation(RetryAble.class));
-        return retryAbleBean;
+        //1. 判断注解信息
+        Optional<RetryAbleBean> retryAbleAnnotationOpt = retryMethodHandler.retryAbleAnnotation(method);
+        if(!retryAbleAnnotationOpt.isPresent()) {
+            return point.proceed();
+        }
+
+        //2. 重试执行
+        final Callable callable = buildCallable(point);
+        final RetryAbleBean retryAbleBean = retryAbleAnnotationOpt.get();
+        return retryMethodHandler.retryCall(retryAbleBean, callable);
     }
 
     /**

@@ -17,13 +17,13 @@ public class RetryerTest {
     @Test
     public void commonTest() {
         Retryer.<String>newInstance()
-                .retry(new Callable<String>() {
+                .callable(new Callable<String>() {
                     @Override
                     public String call() throws Exception {
                         System.out.println("called...");
                         return null;
                     }
-                });
+                }).retryCall();
     }
 
     /**
@@ -32,13 +32,13 @@ public class RetryerTest {
     @Test(expected = RuntimeException.class)
     public void helloTest() {
         Retryer.<String>newInstance()
-                .retry(new Callable<String>() {
+                .callable(new Callable<String>() {
                     @Override
                     public String call() throws Exception {
                         System.out.println("called...");
                         throw new RuntimeException();
                     }
-                });
+                }).retryCall();
     }
 
 }

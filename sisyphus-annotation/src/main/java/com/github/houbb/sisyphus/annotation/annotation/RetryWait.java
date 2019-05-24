@@ -24,7 +24,7 @@ public @interface RetryWait {
     /**
      * 默认值
      * 1. fixed 模式，则对应固定等待时间
-     * 2. 递增/
+     * 2. 递增
      * @return 默认值
      */
     long value() default RetryWaitConst.VALUE_MILLS;

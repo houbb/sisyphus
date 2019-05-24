@@ -10,7 +10,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @since 0.0.4
  */
 @Configurable
-@EnableAspectJAutoProxy
 @ComponentScan(basePackages = "com.github.houbb.sisyphus.test.service")
 @EnableRetry
 public class SpringConfig {

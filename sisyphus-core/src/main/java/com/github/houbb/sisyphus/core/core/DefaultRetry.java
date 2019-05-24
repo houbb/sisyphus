@@ -80,7 +80,13 @@ public class DefaultRetry<R> implements Retry<R> {
         }
 
         // 如果最后一次有异常，直接抛出异常 v0.0.2
-        if(ObjectUtil.isNotNull(retryAttempt.cause())) {
+        final Throwable throwable = retryAttempt.cause();
+        if(ObjectUtil.isNotNull(throwable)) {
+            //1. 运行时异常，则直接抛出
+            //2. 非运行时异常，则包装成为 RetryException
+            if(throwable instanceof RuntimeException) {
+                throw (RuntimeException)throwable;
+            }
             throw new RetryException(retryAttempt.cause());
         }
         // 返回最后一次尝试的结果

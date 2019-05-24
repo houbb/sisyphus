@@ -164,8 +164,4 @@ public class DefaultRetryWaitContext<R> implements RetryWaitContext<R> {
         return this;
     }
 
-//    public static DefaultRetryWaitContext[] defaultRetryWaitContexts() {
-//         return new DefaultRetryWaitContext[]{};
-//    }
-
 }

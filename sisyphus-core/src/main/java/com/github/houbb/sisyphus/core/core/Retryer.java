@@ -2,13 +2,16 @@ package com.github.houbb.sisyphus.core.core;
 
 import com.github.houbb.heaven.annotation.NotThreadSafe;
 import com.github.houbb.heaven.util.common.ArgUtil;
+import com.github.houbb.sisyphus.api.context.RetryContext;
 import com.github.houbb.sisyphus.api.context.RetryWaitContext;
+import com.github.houbb.sisyphus.api.core.Retry;
 import com.github.houbb.sisyphus.api.support.block.RetryBlock;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 import com.github.houbb.sisyphus.api.support.listen.RetryListen;
 import com.github.houbb.sisyphus.api.support.recover.Recover;
 import com.github.houbb.sisyphus.api.support.stop.RetryStop;
 import com.github.houbb.sisyphus.core.context.DefaultRetryContext;
+import com.github.houbb.sisyphus.core.core.retry.DefaultRetry;
 import com.github.houbb.sisyphus.core.support.block.ThreadSleepRetryBlock;
 import com.github.houbb.sisyphus.core.support.condition.RetryConditions;
 import com.github.houbb.sisyphus.core.support.listen.NoRetryListen;
@@ -29,7 +32,20 @@ import java.util.concurrent.Callable;
  * @param <R> 泛型
  */
 @NotThreadSafe
-public class Retryer<R> {
+public class Retryer<R> implements Retry<R> {
+
+    /**
+     * 待执行的方法
+     * @since 0.0.5
+     */
+    private Callable<R> callable;
+
+    /**
+     * 重试实现类
+     * 1. 不推荐用户自定义，但是暴露出来。
+     * @since 0.0.5
+     */
+    private Retry<R> retry = DefaultRetry.getInstance();
 
     /**
      * 执行重试的条件
@@ -66,15 +82,38 @@ public class Retryer<R> {
     /**
      * 重试等待上下文
      */
-    private List<RetryWaitContext<R>> waitContexts = Collections.singletonList(RetryWaiter.<R>retryWait(NoRetryWait.class).retryWaitContext());
+    private List<RetryWaitContext<R>> waitContexts = Collections.singletonList(RetryWaiter.<R>retryWait(NoRetryWait.class).context());
 
     /**
-     * 创建实例化对象
+     * 创建一个对象实例
      * @param <R> 泛型
-     * @return 结果
+     * @return 实例
      */
     public static <R> Retryer<R> newInstance() {
         return new Retryer<>();
+    }
+
+    /**
+     * 1. 设置待处理的方法类
+     * 2. 返回引导类 instance
+     * @param callable callable
+     * @return this
+     */
+    public Retryer<R> callable(final Callable<R> callable) {
+        ArgUtil.notNull(callable, "callable");
+
+        this.callable = callable;
+        return this;
+    }
+
+    /**
+     * 设置重试实现类
+     * @param retry 重试实现类
+     * @return this
+     */
+    public Retryer<R> retry(Retry<R> retry) {
+        this.retry = retry;
+        return this;
     }
 
     /**
@@ -96,7 +135,7 @@ public class Retryer<R> {
      * @param retryWaitContexts 重试等待上下文数组
      * @return 重试等待上下文
      */
-    public Retryer retryWaitContext(RetryWaitContext<R> ... retryWaitContexts) {
+    public Retryer<R> retryWaitContext(RetryWaitContext<R> ... retryWaitContexts) {
         ArgUtil.notEmpty(retryWaitContexts, "retryWaitContexts");
         this.waitContexts = Arrays.asList(retryWaitContexts);
         return this;
@@ -168,14 +207,11 @@ public class Retryer<R> {
     }
 
     /**
-     * 执行重试
-     *
-     * @param callable 可执行的方法
-     * @return 执行的结果
+     * 构建重试上下文
+     * @return 重试上下文
+     * @since 0.0.5
      */
-    public R retry(Callable<R> callable) {
-        ArgUtil.notNull(callable, "callable");
-
+    public RetryContext<R> context() {
         // 初始化
         DefaultRetryContext<R> context = new DefaultRetryContext<>();
         context.callable(callable)
@@ -184,11 +220,35 @@ public class Retryer<R> {
                 .stop(stop)
                 .condition(condition)
                 .listen(listen)
-                .recover(recover);
+                .recover(recover)
+                .retry(retry);
+        return context;
+    }
 
+    /**
+     * 重试执行
+     *
+     * @return 执行的结果
+     * @since 0.0.5
+     */
+    public R retryCall() {
+        // 初始化
+        RetryContext<R> context = context();
         // 调用执行结果
-        DefaultRetry<R> defaultRetry = new DefaultRetry<>();
-        return defaultRetry.retry(context);
+        return context().retry().retryCall(context);
+    }
+
+    /**
+     * 重试执行
+     *
+     * @param context 执行上下文
+     * @return 执行的结果
+     * @since 0.0.5
+     */
+    @Override
+    public R retryCall(final RetryContext<R> context) {
+        // 调用执行结果
+        return context().retry().retryCall(context);
     }
 
 }

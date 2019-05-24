@@ -16,6 +16,6 @@ public interface Retry<R> {
      * @param context 执行上下文
      * @return 执行结果
      */
-    R retry(final RetryContext<R> context);
+    R retryCall(final RetryContext<R> context);
 
 }

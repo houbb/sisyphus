@@ -1,8 +1,11 @@
 package com.github.houbb.sisyphus.annotation.annotation;
 
+import com.github.houbb.sisyphus.annotation.annotation.metadata.RetryAble;
+import com.github.houbb.sisyphus.annotation.handler.impl.DefaultRetryAbleHandler;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 import com.github.houbb.sisyphus.api.support.listen.RetryListen;
 import com.github.houbb.sisyphus.api.support.recover.Recover;
+import com.github.houbb.sisyphus.core.core.retry.DefaultRetry;
 import com.github.houbb.sisyphus.core.support.condition.ExceptionCauseRetryCondition;
 import com.github.houbb.sisyphus.core.support.listen.NoRetryListen;
 import com.github.houbb.sisyphus.core.support.recover.NoRecover;
@@ -21,7 +24,15 @@ import java.lang.annotation.*;
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
+@RetryAble(DefaultRetryAbleHandler.class)
 public @interface Retry {
+
+    /**
+     * 重试类实现
+     * @return 重试
+     * @since 0.0.5
+     */
+    Class<? extends com.github.houbb.sisyphus.api.core.Retry> retry() default DefaultRetry.class;
 
     /**
      * 最大尝试次数
@@ -37,13 +48,6 @@ public @interface Retry {
     Class<? extends RetryCondition> condition() default ExceptionCauseRetryCondition.class;
 
     /**
-     * 等待策略
-     * 1. 支持指定多个，如果不指定，则不进行任何等待，
-     * @return 等待策略
-     */
-    RetryWait[] waits() default {};
-
-    /**
      * 监听器
      * 1. 默认不进行监听
      * @return 监听器
@@ -56,5 +60,12 @@ public @interface Retry {
      * @return 恢复操作对应的类
      */
     Class<? extends Recover> recover() default NoRecover.class;
+
+    /**
+     * 等待策略
+     * 1. 支持指定多个，如果不指定，则不进行任何等待，
+     * @return 等待策略
+     */
+    RetryWait[] waits() default {};
 
 }

@@ -1,4 +1,4 @@
-package com.github.houbb.sisyphus.core.core;
+package com.github.houbb.sisyphus.core.core.retry;
 
 import com.github.houbb.heaven.annotation.ThreadSafe;
 import com.github.houbb.heaven.response.exception.ExceptionUtil;
@@ -21,6 +21,7 @@ import com.github.houbb.sisyphus.core.context.DefaultRetryWaitContext;
 import com.github.houbb.sisyphus.core.model.DefaultAttemptTime;
 import com.github.houbb.sisyphus.core.model.DefaultRetryAttempt;
 import com.github.houbb.sisyphus.core.model.DefaultWaitTime;
+import com.github.houbb.sisyphus.core.support.block.ThreadSleepRetryBlock;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,8 +39,16 @@ import java.util.concurrent.TimeUnit;
 @ThreadSafe
 public class DefaultRetry<R> implements Retry<R> {
 
+    /**
+     * 获取单例
+     * @return 获取单例
+     */
+    public static DefaultRetry getInstance() {
+        return InstanceFactory.getInstance().singleton(DefaultRetry.class);
+    }
+
     @Override
-    public R retry(RetryContext<R> context) {
+    public R retryCall(RetryContext<R> context) {
         List<RetryAttempt<R>> history = new ArrayList<>();
 
         //1. 执行方法

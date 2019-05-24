@@ -1,5 +1,7 @@
 package com.github.houbb.sisyphus.annotation.annotation;
 
+import com.github.houbb.sisyphus.annotation.annotation.metadata.RetryWaitAble;
+import com.github.houbb.sisyphus.annotation.handler.impl.DefaultRetryWaitAbleHandler;
 import com.github.houbb.sisyphus.core.constant.RetryWaitConst;
 import com.github.houbb.sisyphus.core.support.wait.NoRetryWait;
 
@@ -19,6 +21,7 @@ import java.lang.annotation.*;
 @Inherited
 @Documented
 @Target(ElementType.ANNOTATION_TYPE)
+@RetryWaitAble(DefaultRetryWaitAbleHandler.class)
 public @interface RetryWait {
 
     /**

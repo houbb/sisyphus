@@ -1,11 +1,11 @@
 package com.github.houbb.sisyphus.api.context;
 
+import com.github.houbb.sisyphus.api.core.Retry;
 import com.github.houbb.sisyphus.api.support.block.RetryBlock;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 import com.github.houbb.sisyphus.api.support.listen.RetryListen;
 import com.github.houbb.sisyphus.api.support.recover.Recover;
 import com.github.houbb.sisyphus.api.support.stop.RetryStop;
-import com.github.houbb.sisyphus.api.support.wait.RetryWait;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -16,6 +16,13 @@ import java.util.concurrent.Callable;
  * @since 0.0.1
  */
 public interface RetryContext<R>  {
+
+    /**
+     * 重试实现类
+     * @return 重试
+     * @since 0.0.5
+     */
+    Retry<R> retry();
 
     /**
      * 生效条件列表

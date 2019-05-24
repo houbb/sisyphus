@@ -3,7 +3,7 @@ package com.github.houbb.sisyphus.annotation.proxy.dynamic;
 import com.github.houbb.heaven.annotation.ThreadSafe;
 import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
 import com.github.houbb.heaven.support.proxy.IProxy;
-import com.github.houbb.sisyphus.annotation.proxy.RetryMethodHandler;
+import com.github.houbb.sisyphus.annotation.handler.method.RetryMethodHandler;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;

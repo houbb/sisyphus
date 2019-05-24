@@ -2,7 +2,9 @@ package com.github.houbb.sisyphus.spring.aop;
 
 import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
 import com.github.houbb.sisyphus.annotation.annotation.Retry;
-import com.github.houbb.sisyphus.annotation.proxy.RetryMethodHandler;
+import com.github.houbb.sisyphus.annotation.annotation.metadata.RetryAble;
+import com.github.houbb.sisyphus.annotation.handler.method.RetryMethodHandler;
+import com.github.houbb.sisyphus.annotation.model.RetryAbleBean;
 import com.github.houbb.sisyphus.api.exception.RetryException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -31,10 +33,23 @@ public class RetryAop {
     @Around("myPointcut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         Method method = getCurrentMethod(point);
-        Retry retryable = method.getAnnotation(Retry.class);
+        Retry retry = method.getAnnotation(Retry.class);
         final Callable callable = buildCallable(point);
+        final RetryAbleBean retryAbleBean = buildRetryAbleBean(retry);
         return InstanceFactory.getInstance().singleton(RetryMethodHandler.class)
-                .retry(retryable, callable);
+                .retryCall(retryAbleBean, callable);
+    }
+
+    /**
+     * 构建重试对象
+     * @param retryable 重试对象
+     * @return 对象本身
+     */
+    private RetryAbleBean buildRetryAbleBean(final Retry retryable) {
+        RetryAbleBean retryAbleBean = new RetryAbleBean();
+        retryAbleBean.annotation(retryable);
+        retryAbleBean.retryAble(retryable.annotationType().getAnnotation(RetryAble.class));
+        return retryAbleBean;
     }
 
     /**

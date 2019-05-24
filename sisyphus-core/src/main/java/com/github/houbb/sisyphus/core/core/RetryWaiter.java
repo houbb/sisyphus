@@ -119,8 +119,9 @@ public class RetryWaiter<R> {
     /**
      * 构建重试等待时间上下文
      * @return 重试等待时间上下文
+     * @since 0.0.5
      */
-    public RetryWaitContext<R> retryWaitContext() {
+    public RetryWaitContext<R> context() {
         DefaultRetryWaitContext<R> waitContext = new DefaultRetryWaitContext<>();
         waitContext.factor(factor);
         waitContext.max(max);

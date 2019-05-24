@@ -3,6 +3,7 @@ package com.github.houbb.sisyphus.core.context;
 import com.github.houbb.heaven.annotation.NotThreadSafe;
 import com.github.houbb.sisyphus.api.context.RetryContext;
 import com.github.houbb.sisyphus.api.context.RetryWaitContext;
+import com.github.houbb.sisyphus.api.core.Retry;
 import com.github.houbb.sisyphus.api.support.block.RetryBlock;
 import com.github.houbb.sisyphus.api.support.condition.RetryCondition;
 import com.github.houbb.sisyphus.api.support.listen.RetryListen;
@@ -20,6 +21,12 @@ import java.util.concurrent.Callable;
  */
 @NotThreadSafe
 public class DefaultRetryContext<R>  implements RetryContext<R> {
+
+    /**
+     * 重试实现类
+     * @since 0.0.5
+     */
+    private Retry<R> retry;
 
     /**
      * 执行的条件
@@ -55,6 +62,16 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
      * 恢复策略
      */
     private Recover recover;
+
+    @Override
+    public Retry<R> retry() {
+        return retry;
+    }
+
+    public DefaultRetryContext<R> retry(Retry<R> retry) {
+        this.retry = retry;
+        return this;
+    }
 
     @Override
     public RetryCondition condition() {

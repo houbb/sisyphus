@@ -10,9 +10,15 @@
 
 - 支持 fluent 过程式编程
 
-- 基于注解的重试策略
+- 基于字节码的代理重试
 
-- 整合 spring
+- 基于注解的重试，允许自定义注解
+
+- 无缝接入 spring
+
+- 接口与注解的统一
+
+- 解决 spring-retry 与 guava-retrying 中的不足之处
 
 ## 设计目的
 
@@ -21,6 +27,8 @@
 调整一些特性，使其更利于实际使用。
 
 采用 Netty 类似的接口思想，保证接口的一致性，和替换的灵活性。
+
+借鉴 Hibernate-Validator 的设计，允许用户自定义注解
 
 ## 更新记录
 
@@ -34,7 +42,7 @@
 <plugin>
     <groupId>com.github.houbb</groupId>
     <artifactId>sisyphus-core</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.6</version>
 </plugin>
 ```
 
@@ -78,3 +86,14 @@ called...
 重试触发的条件，默认是程序发生了异常
 
 这里的重试间隔默认为没有时间间隔，一共尝试3次。（包括第一次程序本身执行）
+
+
+# 拓展阅读
+
+[00-sisyphus 是什么](doc/user/00-what-is-sisyphus.md)
+
+[01-为什么选择 sisyphus](doc/user/01-why-sisyphus.md)
+
+[02-sisyphus 模块简介](doc/user/02-sisyphus-modules.md)
+
+[03-sisyphus 快速开始](doc/user/03-quick-start.md)

@@ -53,6 +53,34 @@ called...
 
 以及一些异常信息。
 
+## 等价配置
+
+上面的配置其实有很多默认值，如下：
+
+```java
+/**
+ * 默认配置测试
+ */
+@Test(expected = RuntimeException.class)
+public void defaultConfigTest() {
+    Retryer.<String>newInstance()
+            .maxAttempt(3)
+            .listen(RetryListens.noListen())
+            .recover(Recovers.noRecover())
+            .condition(RetryConditions.hasExceptionCause())
+            .retryWaitContext(RetryWaiter.<String>retryWait(NoRetryWait.class).context())
+            .callable(new Callable<String>() {
+                @Override
+                public String call() throws Exception {
+                    System.out.println("called...");
+                    throw new RuntimeException();
+                }
+            }).retryCall();
+}
+```
+
+这些默认值都是可以配置的。
+
 # 更多的学习
 
 当然上面的案例，有很多默认值。

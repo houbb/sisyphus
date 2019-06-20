@@ -1,4 +1,4 @@
-# sisyphus 
+# Sisyphus 
 
 支持过程式编程和注解编程的 java 重试框架。
 
@@ -28,11 +28,17 @@
 
 采用 Netty 类似的接口思想，保证接口的一致性，和替换的灵活性。
 
-借鉴 Hibernate-Validator 的设计，允许用户自定义注解
+借鉴 Hibernate-Validator 的设计，允许用户自定义注解。
+
+> [spring-retry 与 guava-retrying 中的不足之处](https://www.jianshu.com/p/2e3cfc509d56)
 
 ## 更新记录
 
 > [更新记录](doc/CHANGE_LOG.md)
+
+## 开源地址
+
+> [sisyphus](https://github.com/houbb/sisyphus)
 
 # 快速开始
 
@@ -97,3 +103,21 @@ called...
 [02-sisyphus 模块简介](doc/user/02-sisyphus-modules.md)
 
 [03-sisyphus 快速开始](doc/user/03-quick-start.md)
+
+[04-sisyphus 配置概览](doc/user/04-config-overview.md)
+
+[05-sisyphus 注解简介](doc/user/05-annotation.md)
+
+[06-sisyphus 代理模板](doc/user/06-proxy-template.md)
+
+[07-sisyphus spring 整合](doc/user07-spring-integration.md)
+
+# 新特性预定
+
+## 入参
+
+重试上下文添加入参信息
+
+## 配置优化
+
+提供更加优异的配置体验

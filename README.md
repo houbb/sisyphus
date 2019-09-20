@@ -6,6 +6,8 @@
 [![Build Status](https://www.travis-ci.org/houbb/sisyphus.svg?branch=master)](https://www.travis-ci.org/houbb/sisyphus?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/houbb/sisyphus/badge.svg?branch=master)](https://coveralls.io/github/houbb/sisyphus?branch=master)
 
+![sisyphus.jpg](sisyphus.jpg)
+
 ## 特性
 
 - 支持 fluent 过程式编程

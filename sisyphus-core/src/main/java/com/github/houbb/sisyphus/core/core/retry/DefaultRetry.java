@@ -21,7 +21,6 @@ import com.github.houbb.sisyphus.core.context.DefaultRetryWaitContext;
 import com.github.houbb.sisyphus.core.model.DefaultAttemptTime;
 import com.github.houbb.sisyphus.core.model.DefaultRetryAttempt;
 import com.github.houbb.sisyphus.core.model.DefaultWaitTime;
-import com.github.houbb.sisyphus.core.support.block.ThreadSleepRetryBlock;
 
 import java.util.ArrayList;
 import java.util.Date;

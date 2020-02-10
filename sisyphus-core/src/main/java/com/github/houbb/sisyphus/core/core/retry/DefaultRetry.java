@@ -114,7 +114,7 @@ public class DefaultRetry<R> implements Retry<R> {
             RetryWait retryWait = (RetryWait) InstanceFactory.getInstance().threadSafe(context.retryWait());
             final RetryWaitContext retryWaitContext = buildRetryWaitContext(context, retryAttempt);
             WaitTime waitTime = retryWait.waitTime(retryWaitContext);
-            totalTimeMills += waitTime.unit().convert(waitTime.time(), TimeUnit.MILLISECONDS);
+            totalTimeMills += TimeUnit.MILLISECONDS.convert(waitTime.time(), waitTime.unit());
         }
         return new DefaultWaitTime(totalTimeMills);
     }

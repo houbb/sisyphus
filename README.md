@@ -1,10 +1,11 @@
 # Sisyphus 
 
-支持过程式编程和注解编程的 java 重试框架。
+[Sisyphus](https://github.com/houbb/sisyphus) 是支持过程式编程和注解编程的 java 重试框架。
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.houbb/sisyphus/badge.svg)](http://mvnrepository.com/artifact/com.github.houbb/sisyphus)
 [![Build Status](https://www.travis-ci.org/houbb/sisyphus.svg?branch=master)](https://www.travis-ci.org/houbb/sisyphus?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/houbb/sisyphus/badge.svg?branch=master)](https://coveralls.io/github/houbb/sisyphus?branch=master)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.houbb/sisyphus/badge.svg)](http://mvnrepository.com/artifact/com.github.houbb/sisyphus)
+[![](https://img.shields.io/badge/license-Apache2-FF0080.svg)](https://github.com/houbb/sisyphus/blob/master/LICENSE.txt)
+[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/houbb/sisyphus)
 
 ![sisyphus.jpg](sisyphus.jpg)
 
@@ -22,6 +23,14 @@
 
 - 解决 spring-retry 与 guava-retrying 中的不足之处
 
+### v0.0.7 变更
+
+- 修复自定义时间单位 BUG
+
+### 更新记录
+
+> [更新记录](doc/CHANGE_LOG.md)
+
 ## 设计目的
 
 综合了 spring-retry 和 gauva-retrying 的优势。
@@ -33,10 +42,6 @@
 借鉴 Hibernate-Validator 的设计，允许用户自定义注解。
 
 > [spring-retry 与 guava-retrying 中的不足之处](https://www.jianshu.com/p/2e3cfc509d56)
-
-## 更新记录
-
-> [更新记录](doc/CHANGE_LOG.md)
 
 ## 开源地址
 
@@ -50,13 +55,13 @@
 <plugin>
     <groupId>com.github.houbb</groupId>
     <artifactId>sisyphus-core</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
 </plugin>
 ```
 
 ## 入门代码
 
-详情参见 [RetryerTest]()
+详情参见 [RetryerTest](https://github.com/houbb/sisyphus/blob/master/sisyphus-test/src/test/java/com/github/houbb/sispyhus/test/core/RetryerTest.java)
 
 ```java
 public void helloTest() {

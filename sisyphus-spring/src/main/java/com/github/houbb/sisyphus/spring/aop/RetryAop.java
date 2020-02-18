@@ -2,7 +2,6 @@ package com.github.houbb.sisyphus.spring.aop;
 
 import com.github.houbb.heaven.support.instance.impl.InstanceFactory;
 import com.github.houbb.heaven.util.util.Optional;
-import com.github.houbb.sisyphus.annotation.annotation.Retry;
 import com.github.houbb.sisyphus.annotation.annotation.metadata.RetryAble;
 import com.github.houbb.sisyphus.annotation.handler.method.RetryMethodHandler;
 import com.github.houbb.sisyphus.annotation.model.RetryAbleBean;
@@ -28,9 +27,30 @@ import java.util.concurrent.Callable;
 public class RetryAop {
 
     /**
-     * 扫描所有的共有方法
+     *
+     * 切面方法：
+     *
+     * （1）扫描所有的共有方法
+     * <pre>
+     *     execution(public * *(..))
+     * </pre>
+     *
+     * 问题：切面太大，废弃。
+     * 使用扫描注解的方式替代。
+     *
+     * （2）扫描指定注解的方式
+     *
+     * 其实可以在 aop 中直接获取到注解信息，暂时先不调整。
+     * 暂时先不添加 public 的限定
+     *
+     * （3）直接改成注解的优缺点：
+     * 优点：减少了 aop 的切面访问
+     * 缺点：弱化了注解的特性，本来是只要是 {@link RetryAble} 指定的注解即可，
+     * 但是现在只能是指定为 {@link com.github.houbb.sisyphus.annotation.annotation.Retry} 注解。
+     *
+     * 不过考虑到使用者的熟练度，如果用户知道了自定义注解，自定义 aop 应该也不是问题。
      */
-    @Pointcut("execution(public * *(..))")
+    @Pointcut("@annotation(com.github.houbb.sisyphus.annotation.annotation.Retry)")
     public void myPointcut() {
     }
 

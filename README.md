@@ -23,9 +23,9 @@
 
 - 解决 spring-retry 与 guava-retrying 中的不足之处
 
-### v0.0.7 变更
+### v0.0.8 变更
 
-- 修复自定义时间单位 BUG
+- 优化 spring aop 的扫描包范围
 
 ### 更新记录
 
@@ -55,7 +55,7 @@
 <plugin>
     <groupId>com.github.houbb</groupId>
     <artifactId>sisyphus-core</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
 </plugin>
 ```
 

@@ -7,13 +7,14 @@
     <groupId>com.github.houbb</groupId>
     <artifactId>sisyphus</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
     <modules>
         <module>sisyphus-api</module>
         <module>sisyphus-core</module>
         <module>sisyphus-test</module>
         <module>sisyphus-annotation</module>
         <module>sisyphus-spring</module>
+        <module>sisyphus-springboot-starter</module>
     </modules>
 
     <properties>
@@ -42,6 +43,7 @@
         <cglib.version>3.1</cglib.version>
         <spring.version>4.3.24.RELEASE</spring.version>
         <aspectj.version>1.8.5</aspectj.version>
+        <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
     </properties>
 
     <dependencyManagement>
@@ -65,6 +67,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>sisyphus-spring</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sisyphus-springboot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -116,6 +123,12 @@
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
                 <version>${aspectj.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
 
         </dependencies>

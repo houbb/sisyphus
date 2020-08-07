@@ -19,13 +19,15 @@
 
 - 无缝接入 spring
 
+- 无缝接入 spring-boot
+
 - 接口与注解的统一
 
 - 解决 spring-retry 与 guava-retrying 中的不足之处
 
-### v0.0.8 变更
+### v0.0.9 变更
 
-- 优化 spring aop 的扫描包范围
+- 整合 spring-boot
 
 ### 更新记录
 
@@ -55,7 +57,7 @@
 <plugin>
     <groupId>com.github.houbb</groupId>
     <artifactId>sisyphus-core</artifactId>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
 </plugin>
 ```
 
@@ -117,14 +119,12 @@ called...
 
 [06-sisyphus 代理模板](doc/user/06-proxy-template.md)
 
-[07-sisyphus spring 整合](doc/user07-spring-integration.md)
+[07-sisyphus spring 整合](doc/user/07-spring-integration.md)
 
-# 新特性预定
+[08-sisyphus springboot 整合](doc/user/08-springboot-integration.md)
 
-## 入参
+# 后期 Road-MAP
 
-重试上下文添加入参信息
+- [ ] 丰富上下文信息
 
-## 配置优化
-
-提供更加优异的配置体验
+- [ ] 丰富重试统计信息

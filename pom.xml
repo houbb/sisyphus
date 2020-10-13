@@ -37,7 +37,7 @@
         <heaven.version>0.1.76</heaven.version>
 
         <!--============================== OTHER ==============================-->
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <guava-retrying.version>1.0.7</guava-retrying.version>
         <spring-retry.version>1.2.4.RELEASE</spring-retry.version>
         <cglib.version>3.1</cglib.version>

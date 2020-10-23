@@ -17,7 +17,7 @@
 ```xml
 <dependency>
     <groupId>${project.groupId}</groupId>
-    <artifactId>sisyphus-springboot-stater</artifactId>
+    <artifactId>sisyphus-springboot-starter</artifactId>
     <version>${project.version}</version>
 </dependency>
 ```

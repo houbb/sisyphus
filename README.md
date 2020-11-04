@@ -68,19 +68,19 @@
 ```java
 public void helloTest() {
     Retryer.<String>newInstance()
-            .retry(new Callable<String>() {
-                @Override
-                public String call() throws Exception {
-                    System.out.println("called...");
-                    throw new RuntimeException();
-                }
-            });
+                .callable(new Callable<String>() {
+                    @Override
+                    public String call() throws Exception {
+                        System.out.println("called...");
+                        return null;
+                    }
+                }).retryCall();
 }
 ```
 
 ## 代码分析
 
-- retry
+- callable
 
 指定一个 callable 的实现。
 

@@ -6,3 +6,7 @@ script: mvn test
 after_success:
 - mvn clean cobertura:cobertura coveralls:report
 
+
+cache:
+  directories:
+  - $HOME/.m2

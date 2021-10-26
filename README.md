@@ -54,11 +54,11 @@
 ## 引入
 
 ```xml
-<plugin>
+<dependency>
     <groupId>com.github.houbb</groupId>
     <artifactId>sisyphus-core</artifactId>
     <version>0.0.9</version>
-</plugin>
+</dependency>
 ```
 
 ## 入门代码

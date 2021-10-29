@@ -39,7 +39,7 @@ public class RetryMethodHandler implements IMethodHandler {
     @Override
     public Object handle(Object proxy, Method method, Object[] args) throws Throwable {
         //1. 判断注解信息
-        Optional<RetryAbleBean> retryAbleAnnotationOpt = retryAbleAnnotation(method);
+        Optional<RetryAbleBean> retryAbleAnnotationOpt = retryAbleAnnotation(method, args);
         if(!retryAbleAnnotationOpt.isPresent()) {
             return method.invoke(proxy, args);
         }
@@ -63,6 +63,7 @@ public class RetryMethodHandler implements IMethodHandler {
      * @param callable 待重试方法
      * @return 执行结果
      */
+    @SuppressWarnings("all")
     public Object retryCall(final RetryAbleBean retryAbleBean,
                             final Callable callable) {
         final RetryAbleHandler retryAbleHandler = InstanceFactory
@@ -72,15 +73,18 @@ public class RetryMethodHandler implements IMethodHandler {
 
         // 3. 构建执行上下文
         RetryContext retryContext = retryAbleHandler.build(retryAbleBean.annotation(), callable);
+        retryContext.params(retryAbleBean.args());
         return Retryer.newInstance().retryCall(retryContext);
     }
 
     /**
      * 为了处理简单，只匹配第一个符合条件的重试注解
      * @param method 方法体
+     * @param args 产品
      * @return optional
      */
-    public Optional<RetryAbleBean> retryAbleAnnotation(final Method method) {
+    public Optional<RetryAbleBean> retryAbleAnnotation(final Method method,
+                                                       Object[] args) {
         Annotation[] annotations = method.getAnnotations();
         if(ArrayUtil.isEmpty(annotations)) {
             return Optional.empty();
@@ -90,7 +94,9 @@ public class RetryMethodHandler implements IMethodHandler {
             RetryAble retryAble = annotation.annotationType().getAnnotation(RetryAble.class);
             if (ObjectUtil.isNotNull(retryAble)) {
                 RetryAbleBean bean = new RetryAbleBean();
-                bean.retryAble(retryAble).annotation(annotation);
+                bean.retryAble(retryAble)
+                        .annotation(annotation)
+                        .args(args);
                 return Optional.of(bean);
             }
         }

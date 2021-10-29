@@ -66,4 +66,19 @@ public interface RetryContext<R>  {
      */
     Recover recover();
 
+    /**
+     * 请求参数
+     * @return 请求参数
+     * @since 0.1.0
+     */
+    Object[] params();
+
+    /**
+     * 设置上下文的信息
+     * @param params 参数
+     * @return this
+     * @since 0.1.0
+     */
+    RetryContext<R> params(Object[] params);
+
 }

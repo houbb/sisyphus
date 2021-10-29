@@ -53,7 +53,7 @@ public class DefaultRetry<R> implements Retry<R> {
         //1. 执行方法
         int attempts = 1;
         final Callable<R> callable = context.callable();
-        RetryAttempt<R> retryAttempt = execute(callable, attempts, history);
+        RetryAttempt<R> retryAttempt = execute(callable, attempts, history, context);
 
         //2. 是否进行重试
         //2.1 触发执行的 condition
@@ -73,7 +73,7 @@ public class DefaultRetry<R> implements Retry<R> {
             // 每一次执行会更新 executeResult
             attempts++;
             history.add(retryAttempt);
-            retryAttempt = this.execute(callable, attempts, history);
+            retryAttempt = this.execute(callable, attempts, history, context);
 
             // 触发 listener
             retryListen.listen(retryAttempt);
@@ -133,6 +133,7 @@ public class DefaultRetry<R> implements Retry<R> {
         context.history(retryAttempt.history());
         context.cause(retryAttempt.cause());
         context.time(retryAttempt.time());
+        context.params(retryAttempt.params());
         return context;
     }
 
@@ -142,11 +143,13 @@ public class DefaultRetry<R> implements Retry<R> {
      * @param callable 待执行的方法
      * @param attempts 重试次数
      * @param history  历史记录
+     * @param context 请求上下文
      * @return 相关的额执行信息
      */
     private RetryAttempt<R> execute(final Callable<R> callable,
                                     final int attempts,
-                                    final List<RetryAttempt<R>> history) {
+                                    final List<RetryAttempt<R>> history,
+                                    final RetryContext<R> context) {
         final Date startTime = DateUtil.now();
 
         DefaultRetryAttempt<R> retryAttempt = new DefaultRetryAttempt<>();
@@ -170,6 +173,8 @@ public class DefaultRetry<R> implements Retry<R> {
                 .result(result)
                 .history(history);
 
+        //设置请求入参，主要用于回调等使用。
+        retryAttempt.params(context.params());
         return retryAttempt;
     }
 

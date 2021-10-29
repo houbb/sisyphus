@@ -64,6 +64,12 @@ public class DefaultRetryWaitContext<R> implements RetryWaitContext<R> {
      */
     private Class<? extends RetryWait> retryWait;
 
+    /**
+     * 请求参数
+     * @since 0.1.0
+     */
+    private Object[] params;
+
     @Override
     public R result() {
         return result;
@@ -164,4 +170,13 @@ public class DefaultRetryWaitContext<R> implements RetryWaitContext<R> {
         return this;
     }
 
+    @Override
+    public Object[] params() {
+        return params;
+    }
+
+    public DefaultRetryWaitContext<R> params(Object[] params) {
+        this.params = params;
+        return this;
+    }
 }

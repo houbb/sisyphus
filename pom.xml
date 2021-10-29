@@ -7,7 +7,7 @@
     <groupId>com.github.houbb</groupId>
     <artifactId>sisyphus</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.9</version>
+    <version>0.1.0</version>
     <modules>
         <module>sisyphus-api</module>
         <module>sisyphus-core</module>

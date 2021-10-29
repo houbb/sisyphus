@@ -69,7 +69,8 @@ public class RetryAop {
                 .singleton(RetryMethodHandler.class);
 
         //1. 判断注解信息
-        Optional<RetryAbleBean> retryAbleAnnotationOpt = retryMethodHandler.retryAbleAnnotation(method);
+        Object[] args = point.getArgs();
+        Optional<RetryAbleBean> retryAbleAnnotationOpt = retryMethodHandler.retryAbleAnnotation(method, args);
         if(!retryAbleAnnotationOpt.isPresent()) {
             return point.proceed();
         }

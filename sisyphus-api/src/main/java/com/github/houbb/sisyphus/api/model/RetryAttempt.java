@@ -39,4 +39,11 @@ public interface RetryAttempt<R> {
      */
     List<RetryAttempt<R>> history();
 
+    /**
+     * 请求参数
+     * @return 请求参数
+     * @since 0.1.0
+     */
+    Object[] params();
+
 }

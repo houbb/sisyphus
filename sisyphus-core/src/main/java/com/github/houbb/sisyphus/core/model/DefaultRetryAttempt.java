@@ -40,6 +40,12 @@ public class DefaultRetryAttempt<R> implements RetryAttempt<R> {
      */
     private List<RetryAttempt<R>> history;
 
+    /**
+     * 请求参数
+     * @since 0.1.0
+     */
+    private Object[] params;
+
     @Override
     public R result() {
         return result;
@@ -87,6 +93,16 @@ public class DefaultRetryAttempt<R> implements RetryAttempt<R> {
 
     public DefaultRetryAttempt<R> history(List<RetryAttempt<R>> history) {
         this.history = history;
+        return this;
+    }
+
+    @Override
+    public Object[] params() {
+        return params;
+    }
+
+    public DefaultRetryAttempt<R> params(Object[] params) {
+        this.params = params;
         return this;
     }
 }

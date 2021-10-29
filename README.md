@@ -25,9 +25,9 @@
 
 - 解决 spring-retry 与 guava-retrying 中的不足之处
 
-### v0.0.9 变更
+### v0.1.0 变更
 
-- 整合 spring-boot
+- Recover 上下文增加入参，更加便于业务处理
 
 ### 更新记录
 
@@ -57,7 +57,7 @@
 <plugin>
     <groupId>com.github.houbb</groupId>
     <artifactId>sisyphus-core</artifactId>
-    <version>0.0.9</version>
+    <version>0.1.0</version>
 </plugin>
 ```
 

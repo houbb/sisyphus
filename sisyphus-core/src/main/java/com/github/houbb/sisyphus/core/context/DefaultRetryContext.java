@@ -63,6 +63,12 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
      */
     private Recover recover;
 
+    /**
+     * 请求参数
+     * @since 0.1.0
+     */
+    private Object[] params;
+
     @Override
     public Retry<R> retry() {
         return retry;
@@ -140,6 +146,17 @@ public class DefaultRetryContext<R>  implements RetryContext<R> {
 
     public DefaultRetryContext<R> recover(Recover recover) {
         this.recover = recover;
+        return this;
+    }
+
+    @Override
+    public Object[] params() {
+        return params;
+    }
+
+    @Override
+    public DefaultRetryContext<R> params(Object[] params) {
+        this.params = params;
         return this;
     }
 }

@@ -21,6 +21,12 @@ public class RetryAbleBean {
      */
     private Annotation annotation;
 
+    /**
+     * 请求参数
+     * @since 0.1.0
+     */
+    private Object[] args;
+
     public RetryAble retryAble() {
         return retryAble;
     }
@@ -36,6 +42,15 @@ public class RetryAbleBean {
 
     public RetryAbleBean annotation(Annotation annotation) {
         this.annotation = annotation;
+        return this;
+    }
+
+    public Object[] args() {
+        return args;
+    }
+
+    public RetryAbleBean args(Object[] args) {
+        this.args = args;
         return this;
     }
 }

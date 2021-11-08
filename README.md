@@ -43,7 +43,7 @@
 
 借鉴 Hibernate-Validator 的设计，允许用户自定义注解。
 
-> [spring-retry 与 guava-retrying 中的不足之处](https://www.jianshu.com/p/2e3cfc509d56)
+> [spring-retry 与 guava-retrying 中的不足之处](https://juejin.cn/post/7020767222687612964)
 
 ## 开源地址
 

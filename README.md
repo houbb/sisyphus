@@ -68,13 +68,13 @@
 ```java
 public void helloTest() {
     Retryer.<String>newInstance()
-                .callable(new Callable<String>() {
-                    @Override
-                    public String call() throws Exception {
-                        System.out.println("called...");
-                        return null;
-                    }
-                }).retryCall();
+            .callable(new Callable<String>() {
+                @Override
+                public String call() throws Exception {
+                    System.out.println("called...");
+                    throw new RuntimeException();
+                }
+            }).retryCall();
 }
 ```
 

@@ -128,3 +128,31 @@ called...
 - [ ] 丰富上下文信息
 
 - [ ] 丰富重试统计信息
+
+# 中间件等工具开源矩阵
+
+[heaven: 收集开发中常用的工具类](https://github.com/houbb/heaven)
+
+[rpc: 基于 netty4 实现的远程调用工具](https://github.com/houbb/rpc)
+
+[mq: 简易版 mq 实现](https://github.com/houbb/mq)
+
+[ioc: 模拟简易版 spring ioc](https://github.com/houbb/ioc)
+
+[mybatis: 简易版 mybatis](https://github.com/houbb/mybatis)
+
+[cache: 渐进式 redis 缓存](https://github.com/houbb/cache)
+
+[jdbc-pool: 数据库连接池实现](https://github.com/houbb/jdbc-pool)
+
+[sandglass: 任务调度时间工具框架](https://github.com/houbb/sandglass)
+
+[sisyphus: 支持注解的重试框架](https://github.com/houbb/sisyphus)
+
+[resubmit: 防止重复提交框架，支持注解](https://github.com/houbb/resubmit)
+
+[auto-log: 日志自动输出](https://github.com/houbb/auto-log)
+
+[async: 多线程异步并行框架](https://github.com/houbb/async)
+
+

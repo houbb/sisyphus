@@ -41,7 +41,7 @@
         <guava-retrying.version>1.0.7</guava-retrying.version>
         <spring-retry.version>1.2.4.RELEASE</spring-retry.version>
         <cglib.version>3.1</cglib.version>
-        <spring.version>4.3.24.RELEASE</spring.version>
+        <spring.version>5.2.22.RELEASE</spring.version>
         <aspectj.version>1.8.5</aspectj.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
     </properties>
